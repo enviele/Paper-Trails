@@ -4,7 +4,11 @@
 			PImage left;
 			PImage up;
 			charlotte myCharlotte;
+			//switching images for up, down, left, right
 			var valueImage = 0;
+
+			//class for main character 
+			//includes functions for moving up, moving down, etc. Also a function for interactions
 			class charlotte{
 				var xpos;
 				var ypos;
@@ -97,6 +101,7 @@
 
 				
 			}
+			//make functions for switching to different screens
 			void setup(){
 				size(400, 400);
 				//background(0);
