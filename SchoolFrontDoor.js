@@ -1,6 +1,7 @@
 //Setting up the canvas for the first scene
 /*var idList = ["#bigDoor", "mathClass"];
 var rmNum = 0;*/
+var gameOver = false;
 void setup() {
 	console.log("setup");
 	size(1000, 800);
@@ -10,6 +11,12 @@ void setup() {
 void draw(){
 	console.log("draw loop");
 	noLoop();
+}
+if (gameOver == true){
+	for (var g = 0; g < idList.lenth; g++){
+		$(idList[g]).hide();
+	}
+	$("#youLose").show();
 }
 /*void mousePressed(){
 	console.log("where am I?");
