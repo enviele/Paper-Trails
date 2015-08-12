@@ -3,6 +3,7 @@ var rmNum = 0;
 var gameOver = false;
 var win = false;
 var lose = false;
+//$("overGame").hide();
 console.log("js file");
 /*void setup(){
 	console.log("setup2");
