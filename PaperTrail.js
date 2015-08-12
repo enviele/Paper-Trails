@@ -1,5 +1,8 @@
 var idList = ["#bigDoor", "#mathClass"];
 var rmNum = 0;
+var gameOver = false;
+var win = false;
+var lose = false;
 console.log("js file");
 /*void setup(){
 	console.log("setup2");
