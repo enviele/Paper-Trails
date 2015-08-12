@@ -6,7 +6,9 @@ void setup() {
 }
 if (gameOver == true){
 	for (var g = 0; g < idList.lenth; g++){
+		//hides all rooms
 		$(idList[g]).hide();
 	}
+	//shows the game over/winning screen
 	$("#overGame").show();
 }
