@@ -2,20 +2,19 @@
 	<head>
 		<title>Paper Trails</title>
 		<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
-    	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<script src="processing-1.4.1.js"></script>
 		<script src="PaperTrail.js"></script>
-		<script type="text/processing" src="SchoolFrontDoor.js"></script>
-<!-- 		<script type="text/processing" src = "character.js"></script> -->
-		<script type="text/processing" data-processing-target="bigDoor"></script>
-		<script type="text/processing" data-processing-target="mathClass"></script>
 		<script type = "text/processing" data-processing-target = "mycanvas1" src = "character.js"></script>
 		<link rel="stylesheet" type="text/css" href="PaperStyle.css">
+		<script type="text/processing" data-processing-target="bigDoor" src="SchoolFrontDoor.js"></script>
+		<script type="text/processing" data-processing-target="overGame" src="gameOver.js"></script>
+		<script type="text/processing" data-processing-target="mathClass" src="mathRoom.js"></script>
 	</head>
 	<body>
 		<canvas id="bigDoor"></canvas>
 		<canvas id="mathClass"></canvas>
 		<canvas id = "mycanvas1"></canvas>	
-
+		<canvas id="overGame"></canvas>
 	</body>
 </html>
