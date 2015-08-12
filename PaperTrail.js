@@ -1,8 +1,10 @@
 var idList = ["#bigDoor", "#mathClass"];
 var rmNum = 0;
-var gameOver = false;
-var win = false;
+var gameOver = true;
+var win = true;
 var lose = false;
+/*PImage congrats;
+PImage tooBad;*/
 //$("overGame").hide();
 console.log("js file");
 /*void setup(){
