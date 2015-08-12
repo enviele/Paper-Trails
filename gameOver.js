@@ -1,8 +1,9 @@
 
 void setup() {
-	console.log("setup");
+	console.log("setup yourself to fail");
 	size(900, 800);
-	background(90, 140, 205);
+	background(255, 0, 0);
+	$("#overGame").hide();
 }
 if (gameOver == true){
 	for (var g = 0; g < idList.lenth; g++){
