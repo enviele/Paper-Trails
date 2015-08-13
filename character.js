@@ -88,11 +88,22 @@
 				void interact(xParam, yParam, textParam){
 					//console.log(xpos);
 					//console.log(ypos);
-					if(xpos >= xParam - 100 && xpos <= xParam && ypos >= yParam - 100 && ypos <= yParam + 50 ){
-						//console.log("i'm in range rn");
-						console.log(keyPressed);
-						console.log(keyCode);
-						console.log(ALT);
+					if(xpos >= xParam - 58 && ypos >= yParam - 108 &&  ypos <= yParam + 108 && xpos <= xParam + 20){
+						console.log(xParam);
+						 if(xpos >= xParam -58 && xpos < xParam + 20){
+						 	xpos = xpos-5;
+							
+						 }else if(xpos <= xParam +20){
+								xpos = xpos + 5;
+							}
+						// if(xpos <= xParam + 20){
+						// 	console.log("to the right");
+						// 	xpos = xpos + 5;
+						// }
+
+						
+						// xpos = xpos - 5;
+						// ypos = ypos;			
 						if(keyPressed == true && keyCode == ALT){
 							console.log(textParam);
 						}
@@ -117,7 +128,7 @@
 			void draw(){
 				background(255);
 				fill(255, 0, 0);
-				ellipse(200, 200, 20, 20);
+				rect(200, 200, 20, 20);
 				myCharlotte.display();
 				myCharlotte.moveRight();
 				myCharlotte.moveLeft();

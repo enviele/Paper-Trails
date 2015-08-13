@@ -1,38 +1,33 @@
-var codeInput = [];
-
-void setup(){
-	size(400, 400);
-	background(0);
+String myText = "";
+ 
+void setup() {
+  size(500, 500);
+  textAlign(CENTER, CENTER);
+  textSize(30);
+  fill(0);
 }
-function letterInput(){
-	if(keyPressed && codeInput.length < 4){
-		codeInput.push(String(key));
-		console.log(codeInput);
-	}
-
+ 
+void draw() {
+  background(255);
+  text(myText, 0, 0, width, height);
+  if(myText == "59sc"){
+  	console.log("you win!");
+  }
 }
-
-void draw(){
-	letterInput();
-	// if(text[0] == !null){
-	// 	console.log("hello");
-	// 	if(text1.equals("59sc")){
-	// 		console.log("you win!");
-	// 		noLoop();
-	// 	}
-	// 	else {
-	// 		console.log("you lose. try again stupid");
-	// 		noLoop();
-	// 	}
-	// }
-	//for(var i = 0; i++; i<codeInput.length){
-	if(codeInput[0] == 5 && codeInput[1] == 9 && codeInput[2] == "s" && codeInput[3] == "c"){
-		console.log("you win");
+ //implement a variable to see whether you're near the door
+ //so if you're 20 away from door, make variable true
+void keyPressed() {
+	//if variable is true, run this code on keyPressed
+	if(myText.length < 4){
+  	 	//if (keyCode == DELETE) {
+   			// myText = "";
+  		//} else 
+  		if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT) {
+    		myText = myText + String(key);
+  		}
 	}
-	// else{
-	// 	console.log("lose");
-	// }
-	//}
-	
-
+	if(keyCode == DELETE){
+		myText = "";
+	}
+  
 }
