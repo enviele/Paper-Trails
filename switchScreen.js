@@ -33,18 +33,21 @@ void mousePressed() {
 }
  
 void bigDoor() {
+  //controls the first room
   background(255, 0, 0);
   fill(255);
   ellipse(100, 100, 400, 400);
 }
  
 void mathClass() {
+  //controls second room
   background(0, 255, 0);
   fill(0);
   rect(250, 40, 250, 400);
 }
  
 void rm3() {
+  //controls third room
   background(0, 0, 255);
   fill(255, 255, 0);
   triangle(150, 100, 150, 400, 450, 250);
