@@ -1,38 +1,40 @@
-var codeInput = [];
-
-void setup(){
-	size(400, 400);
-	background(0);
+String myText = "";
+ 
+void setup() {
+  size(500, 500);
+  textAlign(CENTER, CENTER);
+  textSize(30);
+  fill(0);
 }
-function letterInput(){
-	if(keyPressed && codeInput.length < 4){
-		codeInput.push(String(key));
-		console.log(codeInput);
-	}
-
+/* when we make the main door, we have to put a variable in that tests whether we're near the main door.
+If the variable is TRUE: we will run the text input code. If the variable is FALSE the input code
+does not run*/ 
+ 
+void draw() {
+  background(255);
+  text(myText, 0, 0, width, height);
+  if(myText.length ==4){
+	  	if(myText == "abcd"){
+	  	console.log("you win");
+		}else{
+		  	console.log("try again");
+		  	myText = "";
+		}
+  }
+  
 }
-
-void draw(){
-	letterInput();
-	// if(text[0] == !null){
-	// 	console.log("hello");
-	// 	if(text1.equals("59sc")){
-	// 		console.log("you win!");
-	// 		noLoop();
-	// 	}
-	// 	else {
-	// 		console.log("you lose. try again stupid");
-	// 		noLoop();
-	// 	}
-	// }
-	//for(var i = 0; i++; i<codeInput.length){
-	if(codeInput[0] == 5 && codeInput[1] == 9 && codeInput[2] == "s" && codeInput[3] == "c"){
-		console.log("you win");
+ 
+void keyPressed() {
+	if(myText.length < 4){
+		if (keyCode == BACKSPACE) {
+		    if (myText.length() > 0) {
+		      myText = myText.substring(0, myText.length()-1);
+		    }
+		} else if (keyCode == DELETE) {
+			    myText = "";
+		} else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT) {
+			    myText = myText + String(key);
+			}
 	}
-	// else{
-	// 	console.log("lose");
-	// }
-	//}
-	
-
+  
 }
