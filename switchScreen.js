@@ -8,6 +8,7 @@ void setup() {
  
 void draw() {
 	console.log("drawing");
+  //depending on the number, a rectangle will draw
 	switch(currentScreen) {
 		case 0: 
 			drawScreenZero(); 
@@ -27,7 +28,7 @@ void draw() {
 void mousePressed() {
   currentScreen++;
   if (currentScreen > 2) { 
-  	currentScreen = 0; 
+    currentScreen = 0; 
   }
 }
  
