@@ -6,6 +6,7 @@
 			PImage objectImage;
 			charlotte myCharlotte;
 			obj myObj;
+			textBox myText;
 			//switching images for up, down, left, right
 			var valueImage = 0;
 			var xpos = 0;
@@ -93,34 +94,29 @@
 					
 				}
 
-				// void interact(xParam, yParam, textParam){
-				// 	//console.log(xpos);
-				// 	//console.log(ypos);
-				// 	if(xpos >= xParam - 58 && ypos >= yParam - 108 &&  ypos <= yParam && xpos <= xParam + 58){
-				// 		//stop when hit this xpos
-				// 		 if(xpos >= xParam -58 && xpos < xParam + 58){
-
-				// 		 	xpos = xpos-5;
-				// 		 // 	if(ypos >= yParam - 108 && ypos < yParam + 108){
-				// 			// 	ypos = ypos -5;
-				// 			// }
-				// 			// else if(ypos <= yParam + 108){
-				// 			// 	ypos = ypos + 5;
-				// 			// }		
-							
-				// 		 }else if(xpos <= xParam + 58){
-				// 		 		console.log()
-				// 				xpos = xpos + 5;
-				// 			}
-
-						
-				// 		if(keyPressed == true && keyCode == ALT){
-				// 			console.log(textParam);
-				// 		}
-				// 	}
-				// }
 
 				
+			}
+
+			//class for text boxes
+			//can potentially prompt them with 
+			class textBox{
+				var ypos;
+				var s;
+
+				textBox(tmpYpos, tmpS){
+					ypos = tmpYpos;
+					s = tmpS;
+				}
+
+				void display(){
+					//console.log(width);
+					fill(0);
+					rect(0, ypos, width, height);
+					fill(255);
+					text(s, 10, ypos + 10, width, 100);
+				}
+
 			}
 
 			/*a class for an objects. 
@@ -214,19 +210,19 @@
 				objectImage = loadImage('kitty.jpg');
 				myCharlotte = new charlotte(forward,right1, right2, left,up, 0, 0, 31, 47);
 				myObj = new obj(objectImage, 200, 200, 100, 100);
+				myText = new textBox(300, "this is a text box");
 
 			}
 			void draw(){
 				background(255);
-				fill(255, 0, 0);
-				rect(200, 200, 58, 108);
 				myObj.display();
-
+				
 				myCharlotte.display();
 				myCharlotte.moveRight();
 				myCharlotte.moveLeft();
 				myCharlotte.moveUp();
 				myCharlotte.moveDown();
+
 				if(myObj.checkRight()){
 					console.log(myCharlotte.xpos);
 					myCharlotte.xpos = myObj.xpos - myCharlotte.width;
@@ -239,7 +235,13 @@
 				}	
 				else if(myObj.checkDown()){
 					myCharlotte.ypos = myObj.ypos + myObj.height; 
-				}			
-				//myCharlotte.interact(200, 200, "this is an ellipse");
-				
+				}	
+
+				// fill(0);
+				// rect(0, 300, width, height);
+				// fill(255);
+				// text("hello this is a text box", 10, 310, width, 100);
+				myText.display();
+		
+
 			}
