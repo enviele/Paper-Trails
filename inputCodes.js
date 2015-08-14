@@ -28,7 +28,7 @@ void draw() {
 void keyPressed() {
 	if(myText.length < 4){
 		if (keyCode == BACKSPACE) {
-		    if (myText.length() > 0) {
+		    if (myText.length > 0) {
 		      myText = myText.substring(0, myText.length()-1);
 		    }
 		} else if (keyCode == DELETE) {
