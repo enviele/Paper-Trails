@@ -16,7 +16,7 @@ void draw() {
   text(myText, 0, 0, width, height);
   if(myText.length ==4){
 	  	if(myText == "59sc"){
-	  	console.log("you win");
+	  		console.log("you win");
 		}else{
 		  	console.log("try again");
 		  	myText = "";
