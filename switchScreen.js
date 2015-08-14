@@ -1,4 +1,6 @@
 int currentScreen;
+PImage frontDoor;
+PImage mathRm;
 
 function timer(secs){
   //Input "seconds" as the amount of time you want to wait
@@ -18,6 +20,8 @@ void setup() {
   size(500, 500);
   noStroke();
   smooth();
+  frontDoor = loadImage("lockerRm.png");
+  mathRm = loadImage("basicArtbackground.png");
 } 
  
 void draw() {
@@ -48,16 +52,12 @@ void mousePressed() {
  
 void bigDoor() {
   //controls the first room
-  background(255, 0, 0);
-  fill(255);
-  ellipse(100, 100, 400, 400);
+  image(frontDoor, 0, 0, 500, 500);
 }
  
 void mathClass() {
   //controls second room
-  background(0, 255, 0);
-  fill(0);
-  rect(250, 40, 250, 400);
+  image(mathRm, 0, 0, 500, 500);
 }
  
 void rm3() {
