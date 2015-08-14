@@ -1,7 +1,7 @@
 int currentScreen;
 
 function timer(secs){
-  //working on timer function
+  //Input "seconds" as the amount of time you want to wait
   var currentTime = 0;
   if (currentTime < secs){
     currentTime++;
