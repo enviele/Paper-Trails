@@ -3,7 +3,12 @@ int currentScreen;
 function timer(secs){
   //working on timer function
   var currentTime = 0;
-  if (currentTime <)
+  if (currentTime < secs){
+    currentTime++;
+  }
+  else {
+    currentTime = 0;
+  }
 }
 
 
