@@ -4,6 +4,8 @@
 			PImage left;
 			PImage up;
 			PImage objectImage;
+			PImage frontDoor;
+			PImage mathRm;
 			charlotte myCharlotte;
 			obj myObj;
 			textBox myText;
@@ -11,6 +13,19 @@
 			var valueImage = 0;
 			var xpos = 0;
 			var ypos = 0;
+			int currentScreen;
+
+			function timer(secs){
+			  //Input "seconds" as the amount of time you want to wait
+			  var currentTime = 0;
+			  if (currentTime < secs){
+			    currentTime++;
+			  }
+			  else {
+			    currentTime = 0;
+			  }
+			}
+
 
 			//class for main character 
 			//includes functions for moving up, moving down, etc. Also a function for interactions
@@ -19,16 +34,14 @@
 				var ypos;
 				var forward;
 				var right1;
-				var right2;
 				var left;
 				var up;
 				var width;
 				var height;
 
-				charlotte(tmpforward, tmpright1, tmpright2, tmpLeft, tmpUp, tmpXpos, tmpYpos, tmpwidth, tmpheight){
+				charlotte(tmpforward, tmpright1,  tmpLeft, tmpUp, tmpXpos, tmpYpos, tmpwidth, tmpheight){
 					forward = tmpforward;
 					right1 = tmpright1;
-					right2 = tmpright2;
 					left = tmpLeft;
 					up = tmpUp;
 					xpos = tmpXpos;
@@ -90,6 +103,7 @@
 						valueImage = 0;
 						ypos = ypos+5;
 						
+
 					}
 					
 				}
@@ -122,6 +136,10 @@
 			/*a class for an objects. 
 			for functions: sensing left, right, up, down with the character
 				return booleans*/
+
+
+			//a class for an objects. for functions: sensing left, right, up, down with the character. return booleans
+
 
 			class obj{
 
@@ -197,34 +215,35 @@
 				}
 
 			}
-			//make functions for switching to different screens
 			void setup(){
-				size(400, 400);
+				//size(400, 400);
 				//background(0);
 				//console.log("i'm now loading the image");
+				size(500, 500);
+				noStroke();
+				smooth();
+				frontDoor = loadImage("lockerRm.png");
+  				mathRm = loadImage("basicArtbackground.png");
 				forward = loadImage('charlotteF.png');
 				right1 = loadImage('charlotteR.png');
-				right2 = loadImage('charlotteR2.png')
+				//right2 = loadImage('charlotteR2.png');
 				left = loadImage('charlotteL.png');
 				up = loadImage('charlotteB.png');
 				objectImage = loadImage('kitty.jpg');
-				myCharlotte = new charlotte(forward,right1, right2, left,up, 0, 0, 31, 47);
+				myCharlotte = new charlotte(forward,right1, left,up, 0, 0, 31, 47);
 				myObj = new obj(objectImage, 200, 200, 100, 100);
 				myText = new textBox(300, "this is a text box");
 
 			}
-			void draw(){
-				background(255);
-				myObj.display();
-				
-				myCharlotte.display();
-				myCharlotte.moveRight();
-				myCharlotte.moveLeft();
-				myCharlotte.moveUp();
-				myCharlotte.moveDown();
 
+			void bigDoor() {
+				//controls the first room
+				image(frontDoor, 0, 0, 500, 500);
+				fill(255, 0, 0);
+				rect(200, 200, 58, 108);
+				myObj.display();
 				if(myObj.checkRight()){
-					console.log(myCharlotte.xpos);
+					//console.log(myCharlotte.xpos);
 					myCharlotte.xpos = myObj.xpos - myCharlotte.width;
 				}
 				else if(myObj.checkLeft()){
@@ -235,13 +254,64 @@
 				}	
 				else if(myObj.checkDown()){
 					myCharlotte.ypos = myObj.ypos + myObj.height; 
-				}	
+
+				}
+			}	
 
 				// fill(0);
 				// rect(0, 300, width, height);
 				// fill(255);
 				// text("hello this is a text box", 10, 310, width, 100);
-				myText.display();
-		
 
+			void mathClass() {
+				//controls second room
+				image(mathRm, 0, 0, 500, 500);
+			}
+
+			void rm3() {
+				//controls third room
+				background(0, 0, 255);
+				fill(255, 255, 0);
+				triangle(150, 100, 150, 400, 450, 250);
+			}
+
+
+			void mousePressed() {
+			  currentScreen++;
+			  if (currentScreen > 2) { 
+			    currentScreen = 0; 
+			  }
+			}
+			void draw(){
+				switch(currentScreen) {
+					case 0: 
+						bigDoor(); 
+						break;
+					case 1: 
+						mathClass(); 
+						break;
+					case 2: 
+						rm3(); 
+						break;
+					default: 
+						background(0); 
+						break;
+				}
+				myCharlotte.display();
+				myCharlotte.moveRight();
+				myCharlotte.moveLeft();
+				myCharlotte.moveUp();
+				myCharlotte.moveDown();
+				if (myCharlotte.xpos < 0){
+					myCharlotte.xpos = 0;
+				}
+				else if(myCharlotte.xpos + myCharlotte.width > 500){
+					myCharlotte.xpos = 500 - myCharlotte.width;
+				}
+				else if(myCharlotte.ypos < 0){
+					myCharlotte.ypos = 0;
+				}
+				else if(myCharlotte.ypos + myCharlotte.height >= 500){
+					myCharlotte.ypos = 500 - myCharlotte.height;
+				}
 			}
