@@ -195,10 +195,10 @@ class obj{
 		// console.log(myCharlotte.width);
 		// need to constrain so it doesnt activate when its on the left of the image
 
-		if(myCharlotte.xpos >= myObj.xpos - myCharlotte.width
-			&& myCharlotte.xpos < myObj.xpos
-			&& myCharlotte.ypos + myCharlotte.height >= myObj.ypos 
-			&& myCharlotte.ypos<= myObj.ypos + myObj.height){
+		if(myCharlotte.xpos >= xpos - myCharlotte.width
+			&& myCharlotte.xpos < xpos
+			&& myCharlotte.ypos + myCharlotte.height >= ypos 
+			&& myCharlotte.ypos<= ypos + height){
 			isRight = true;
 			//console.log("charlotte is to the right of me");
 			return isRight;
@@ -207,20 +207,20 @@ class obj{
 
 	void checkLeft(){
 		//console.log(myCharlotte.width);
-		if(myCharlotte.xpos <= myObj.xpos + myObj.width
-			&& myCharlotte.xpos > myObj.xpos + myObj.width -20
-			&& myCharlotte.ypos + myCharlotte.height >= myObj.ypos 
-			&& myCharlotte.ypos<= myObj.ypos + myObj.height){
+		if(myCharlotte.xpos <= xpos + width
+			&& myCharlotte.xpos > xpos + width -20
+			&& myCharlotte.ypos + myCharlotte.height >= ypos 
+			&& myCharlotte.ypos<= ypos + height){
 			isLeft = true;
 			//console.log("charlotte is to the left of me");
 			return isLeft;
 		}
 	}
 	void checkUp(){
-		if(myCharlotte.ypos >= myObj.ypos - myCharlotte.height
-			&& myCharlotte.ypos < myObj.ypos - myCharlotte.height + 20
-			&& myCharlotte.xpos >= myObj.xpos
-			&& myCharlotte.xpos <= myObj.xpos + myObj.width){
+		if(myCharlotte.ypos >= ypos - myCharlotte.height
+			&& myCharlotte.ypos < ypos - myCharlotte.height + 20
+			&& myCharlotte.xpos >= xpos
+			&& myCharlotte.xpos <= xpos + width){
 			isUp = true;
 			//console.log("charlotte is up");
 			return isUp;
@@ -229,10 +229,10 @@ class obj{
 	}
 
 	void checkDown(){
-		if(myCharlotte.ypos <= myObj.ypos + myObj.height
-			&& myCharlotte.ypos > myObj.ypos + myObj.height - 20 
-			&& myCharlotte.xpos >= myObj.xpos
-			&& myCharlotte.xpos <= myObj.xpos + myObj.width){
+		if(myCharlotte.ypos <= ypos + height
+			&& myCharlotte.ypos > ypos + height - 20 
+			&& myCharlotte.xpos >= xpos
+			&& myCharlotte.xpos <= xpos + width){
 			isDown = true;
 			//console.log("charlotte is down");
 			return isDown;
@@ -248,8 +248,9 @@ void setup(){
 	noStroke();
 	smooth();
 	frontDoor = loadImage("lockerRm.png");
-		mathRm = loadImage("basicArtbackground.png");
-		//sprites for character 
+	mathRm = loadImage("basicArtbackground.png");
+		
+	//sprites for character 
 	forward = loadImage('charlotteF.png');
 	right1 = loadImage('charlotteR.png');
 	left = loadImage('charlotteL.png');
@@ -259,7 +260,7 @@ void setup(){
 	objectImage = loadImage('kitty.jpg');
 
 	textAlign(CENTER, CENTER);
-	textSize(30);
+	textSize(20);
 	fill(0);
 	myCharlotte = new charlotte(forward,right1, left,up, 0, 0, 31, 47);
 	myObj = new obj(objectImage, 200, 200, 100, 100);
@@ -331,6 +332,9 @@ void bigDoor() {
 		endingKeyCode(); 
 		fill(0);
 		text(codeText[0], 100, 150); 
+		text(codeText[1], 170, 150);
+		text(codeText[2], 240, 150);
+		text(codeText[3], 310, 150);
 		if(codeText.length ==4){
 		  	if(codeText == "59sc"){
 		  		console.log("you win");
@@ -358,6 +362,7 @@ void rm3() {
 	fill(255, 255, 0);
 	triangle(150, 100, 150, 400, 450, 250);
 }
+
 
 
 void mousePressed() {
