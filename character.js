@@ -371,6 +371,10 @@ void bigDoor() {
 		currentScreen = 2;
 		myCharlotte.xpos = 0;
 	}
+	else if (myCharlotte.xpos > 90 && myCharlotte.xpos + myCharlotte.width < 150 && myCharlotte.ypos + myCharlotte.height >= 500){
+		currentScreen = 3;
+		myCharlotte.ypos = 0;
+	}
 	if (exitDoor) {
 		promptExit.display();	
 		endingKeyCode(); 
