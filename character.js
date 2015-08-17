@@ -13,19 +13,43 @@ obj pottedPlant;
 textBox promptExit;
 textBox plantText;
 textBox otherNotes = [];
+textBox deskText = [];
 obj deskList = [[],[],[],[]];
 obj randomPaper = [];
 
 boolean exitDoor = false;
 String codeText = "";
-var story = ["Type a four letter code to get out. Press shift to go back to room", "Looks like there's a piece of paper in here", 
-			"There's a peice of paper in the desk. It reads: 'do you want to study today after class?'"];
+var story = ["Type a four letter code to get out. Press shift to go back to room", "Meet me today after math class. Don't forget your locker combo: 420. You even forgot your locker number! Here, I am the beginning of the end, the end of every place. I am the beginning of eternity, the end of time and space. What am I? the answer will lead to your locker number. :) <3 S.", 
+			"There's a piece of paper in the desk. It reads: 'do you want to study today after class?'"];
 
-var randomNotes = ["meet me after school today", 
-					"Please have this signed by Tuesday", 
+var randomNotes = ["meet me after school today. I have to talk to you. I know about you and [the note is cut off here]", 
+					"Please have this signed by your parents Tuesday.", 
 					"Can I copy off your math homework?? :) <3",
-					"I'm screwed for the physics test. F U C K"
+					"I'm screwed for the physics test. Didn't study at all last night...",
+					"Left a note in the usual spot. Remember this gem from when we were young? You bury me when I'm alive and dig me up only when I die, what am I?",
+					"MUN meeting today after school, bring cookies. Also, Super Smash Bros tournament afterwards. Me and my girl Princess Peach are going to kick your ass.",
+					"We need to call a meeting for game design club officers. Our budget is severely restricting our individuality"
 					];
+
+var deskNotes = ["I'm pretty sure we already went over this stuff. The class is such a waste of time",
+				  "Why does he have to be so judgey about other people's questions? god. what a dick.",
+				  "Hey baby, today under the bleachers? ;)",
+				  "Do you wanna watch Juno with me today?",
+				  "the last episode of the Legend of Korra wrecked me emotionally",
+				  "Personal Essay: How I Got a Girlfriend [in red pen] 'this is not an appropriate topic'",
+				  "Personal Essay: My battle with the APUSH curriculum",
+				  "Personal Essay: My battle with the AMSTED curriculum",
+				  "Personal Essay: My battle with the IB History curriculum",
+				  "Personal Essay: A Change of Scenery - My move when I was 9 years",	
+				  "Personal Essay: Working with Syrian Refugees [in red pen] 'wow!!'",
+				  "This is wack. I don't know why my essay was rejected. Ms Coleman doesn't even know what she's doing",
+				  "Critical Essay - Yams of Wrath: Okonkwo's anger issues ",
+				  "Critical Essay - Milkboy to Milkman: Milkman's coming of age in the Song of Solomon",
+				  "Critical Essay - Is Atticus Finch a Racist?!?!?!",
+				  "Critical Essay - The Adventures of a Whiny Rich Boy: the Adventures of Tom Sawyer",
+				  "The Journey of the Paper Crane", 
+
+				]
 //switching images for up, down, left, right
 var valueImage = 0;
 var xpos = 0;
@@ -280,12 +304,12 @@ void setup(){
 	paper = loadImage('Paper.png');
 
 	//random paper notes
-	for(var i = 0; i < 4; i++){
-		randomPaper.push(new obj(paper, random(20, 460), random(50, 450), 30, 30));
+	for(var i = 0; i < 7; i++){
+		randomPaper.push(new obj(paper, random(20, 460), random(80, 450), 30, 30));
 	}
 	
 	//random textBoxes too
-	for(var i = 0; i < 4; i++){
+	for(var i = 0; i < 7; i++){
 		otherNotes.push(new textBox(350, randomNotes[i]));
 	}
 
@@ -374,7 +398,7 @@ void bigDoor() {
 				
 	}
 
-	for(var i = 0; i < 4; i++){
+	for(var i = 0; i < 7; i++){
 		randomPaper[i].display();
 		if(randomPaper[i].checkRight()){
 			if(keyPressed == true && key == 'a'){
@@ -482,10 +506,10 @@ void mathClass() {
 			}
 		}
 	}
-	if(deskList[2][2].checkLeft() && key == 'a'){
-		deskText.display();
-		//myCharlotte.ypos = pottedPlant.ypos + pottedPlant.height;
-	}
+	// if(deskList[2][2].checkLeft() && key == 'a'){
+	// 	deskText.display();
+	// 	//myCharlotte.ypos = pottedPlant.ypos + pottedPlant.height;
+	// }
 }
 
 void rm3() {
