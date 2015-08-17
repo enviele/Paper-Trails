@@ -15,8 +15,8 @@ obj deskList = [[],[],[],[]];
 
 boolean exitDoor = false;
 String codeText = "";
-var story = ["Type a four letter code to get out", "Looks like there's a piece of paper in here", 
-			"My old desk. It brings back so many bad memories"];
+var story = ["Type a four letter code to get out. Press shift to go back to room", "Looks like there's a piece of paper in here", 
+			"There's a peice of paper in the desk. It reads: 'do you want to study today after class?'"];
 //switching images for up, down, left, right
 var valueImage = 0;
 var xpos = 0;
@@ -268,11 +268,11 @@ void setup(){
 	desk = loadImage('desk2.png');
 	door = loadImage('greyD.png');
 
-	textAlign(CENTER, CENTER);
-	textSize(20);
+	//textAlign(CENTER, CENTER);
+	textSize(15);
 	fill(0);
 	myCharlotte = new charlotte(forward,right1, left,up, 250, 250, 31, 47);
-	doubDoor = new obj(door, 214, 53, 95, 123);
+	doubDoor = new obj(door, 200, 55, 50, 50);
 	pottedPlant = new obj(plant, 5, 435, 40, 60);
 	promptExit = new textBox(350, story[0]);
 	plantText = new textBox(350, story[1]);
@@ -333,9 +333,23 @@ void bigDoor() {
 	doubDoor.display();
 	pottedPlant.display();
 	//double doors 
-	if(doubDoor.checkDown() && key == 'a'){
-		exitDoor = true;
-		myCharlotte.ypos = myObj.ypos + myObj.height; 
+	if(doubDoor.checkRight()){
+				myCharlotte.xpos = doubDoor.xpos - myCharlotte.width;
+				//myCharlotte.xpos = deskList;
+	}
+	else if(doubDoor.checkLeft()){
+				myCharlotte.xpos = doubDoor.xpos + doubDoor.width;
+	}
+	else if(doubDoor.checkUp()){	
+				myCharlotte.ypos = doubDoor.ypos - doubDoor.height;
+	}	
+	else if(doubDoor.checkDown()){
+				myCharlotte.ypos = doubDoor.ypos + doubDoor.height;
+				if(keyPressed && key =='a'){
+					exitDoor = true;
+					promptExit.display(); 
+				}
+				
 	}
 
 	//potted plant actions
@@ -357,11 +371,11 @@ void bigDoor() {
 		currentScreen = 1;
 		myCharlotte.xpos = 500 - myCharlotte.width;
 	}
-	else if (myCharlotte.xpos + myCharlotte.width >= 500 && myCharlotte.ypos + myCharlotte.height > 410 && myCharlotte.ypos < 500){
+	else if (myCharlotte.xpos + myCharlotte.width >= 500 && myCharlotte.ypos + myCharlotte.height > 240 && myCharlotte.ypos < 295){
 		currentScreen = 2;
 		myCharlotte.xpos = 0;
 	}
-	else if (myCharlotte.xpos > 90 && myCharlotte.xpos + myCharlotte.width < 150 && myCharlotte.ypos + myCharlotte.height >= 500){
+	else if (myCharlotte.xpos < 260 && myCharlotte.xpos + myCharlotte.width > 205 && myCharlotte.ypos + myCharlotte.height >= 500){
 		currentScreen = 3;
 		myCharlotte.ypos = 0;
 	}
@@ -369,6 +383,9 @@ void bigDoor() {
 	if (exitDoor) {
 		promptExit.display();	
 		endingKeyCode(); 
+		fill(0);
+		textAlign(CENTER, CENTER);
+		textSize(20);
 		fill(0);
 		text(codeText[0], 100, 150); 
 		text(codeText[1], 170, 150);
@@ -413,10 +430,10 @@ void mathClass() {
 			}
 		}
 	}
-	if(deskList[3][0].checkLeft() && key == 'a'){
+	if(deskList[2][2].checkLeft() && key == 'a'){
 		console.log("found you!");
 		deskText.display();
-		myCharlotte.ypos = pottedPlant.ypos + pottedPlant.height;
+		//myCharlotte.ypos = pottedPlant.ypos + pottedPlant.height;
 	}
 }
 
