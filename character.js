@@ -3,6 +3,7 @@ PImage forward, right1, right2, left, up;
 PImage objectImage, plant, desks, door, singleDoor, paper; 
 PImage frontDoor, mathRm, rmThr, rmFor; 
 PImage uLose;
+PImage paper, locker, endLocker;
 
 
 
@@ -16,6 +17,8 @@ textBox otherNotes = [];
 textBox deskText1 = [[],[],[],[]];
 obj deskList = [[],[],[],[]];
 obj randomPaper = [];
+obj lockerList = [];
+obj lockerLast;
 
 boolean exitDoor = false;
 boolean gameOver = false;
@@ -306,15 +309,24 @@ void setup(){
 	door = loadImage('greyD.png');
 	paper = loadImage('Paper.png');
 	singleDoor = loadImage('singleD.png');
+	locker = loadImage('littleLocker.png');
+	endLocker = loadImage('bigLocker.png');
+
 
 	//random paper notes
 	for(var i = 0; i < 7; i++){
-		randomPaper.push(new obj(paper, random(70, 460), random(90, 450), 30, 30));
+		randomPaper.push(new obj(paper, random(70, 430), random(90, 430), 30, 30));
 	}
 	
 	//random textBoxes too
 	for(var i = 0; i < 7; i++){
 		otherNotes.push(new textBox(350, randomNotes[i]));
+	}
+
+	//initializing the locker objects
+	for(var i = 0; i < 4; i++){
+		lockerList.push(new obj(locker, 450, 30*i + 310, 30, 30));
+
 	}
 
 
@@ -329,6 +341,7 @@ void setup(){
 	plantText = new textBox(350, story[1]);
 	teachTab = new obj(desk, 250, 250, 50, 50);
 	teachText = new textBox(350, story[2]);
+	lockerLast = new obj(endLocker, 450, 430, 30, 40);
 
 	for(var i = 0; i < deskList.length; i++){
 		for(var j = 0; j < 5; j++){
@@ -404,6 +417,11 @@ void bigDoor() {
 		}
 				
 	}
+
+	for(var i = 0; i < 4; i++){
+		lockerList[i].display();
+	}
+	lockerLast.display();
 
 	for(var i = 0; i < 7; i++){
 
