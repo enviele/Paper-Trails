@@ -285,7 +285,7 @@ void setup(){
 	
 	//random textBoxes too
 	for(var i = 0; i < 4; i++){
-		otherNotes.push(new textBox(350, story[i]));
+		otherNotes.push(new textBox(350, randomNotes[i]));
 	}
 
 
