@@ -8,7 +8,7 @@ PImage paper;
 
 //objects
 charlotte myCharlotte;
-obj myObj;
+obj teachTab;
 obj pottedPlant;
 textBox promptExit;
 textBox plantText;
@@ -19,10 +19,11 @@ obj randomPaper = [];
 
 boolean exitDoor = false;
 String codeText = "";
-var story = ["Type a four letter code to get out. Press shift to go back to room", "Meet me today after math class. Don't forget your locker combo: 420. You even forgot your locker number! Here, I am the beginning of the end, the end of every place. I am the beginning of eternity, the end of time and space. What am I? the answer will lead to your locker number. :) <3 S.", 
-			"There's a piece of paper in the desk. It reads: 'do you want to study today after class?'"];
+var story = ["Type a four letter code to get out. Press shift to go back to room", 
+			"Meet me today after math class. Don't forget your locker combo: 420. You even forgot your locker number! Here: I am the beginning of the end, the end of every place. I am the beginning of eternity, the end of time and space. What am I? the answer will lead to your locker number. :) <3 S.", 
+			"There's a test on the table. Name: Charlotte, Grade: F"];
 
-var randomNotes = ["meet me after school today. I have to talk to you. I know about you and [the note is cut off here]", 
+var randomNotes = ["Meet me after school today. I have to talk to you. I know about you and [the note is cut off here]", 
 					"Please have this signed by your parents Tuesday.", 
 					"Can I copy off your math homework?? :) <3",
 					"I'm screwed for the physics test. Didn't study at all last night...",
@@ -32,15 +33,15 @@ var randomNotes = ["meet me after school today. I have to talk to you. I know ab
 					];
 
 var deskNotes = [["I'm pretty sure we already went over this stuff. The class is such a waste of time",
-				  "Why does he have to be so judgey about other people's questions? god.",
+				  "Why does he have to be so judge-y about other people's questions? God.",
 				  "Hey baby, today under the bleachers? ;)",
 				  "Do you wanna watch Juno with me today?"],
-				  ["the last episode of the Legend of Korra wrecked me emotionally",
+				  ["The last episode of the Legend of Korra wrecked me emotionally",
 				  "Personal Essay: How I Got a Girlfriend [in red pen] 'this is not an appropriate topic'",
 				  "Personal Essay: My battle with the APUSH curriculum",
 				  "Personal Essay: My battle with the AMSTED curriculum"],
 				  ["Personal Essay: My battle with the IB History curriculum",
-				  "Personal Essay: A Change of Scenery - My move when I was 9 years",	
+				  "Personal Essay: A Change of Scenery - My move when I was 9 years old",	
 				  "Personal Essay: Working with Syrian Refugees [in red pen] 'wow!!'",
 				  "This is wack. I don't know why my essay was rejected. Ms Coleman doesn't even know what she's doing",
 				  "Critical Essay - Yams of Wrath: Okonkwo's anger issues "],
@@ -324,7 +325,8 @@ void setup(){
 	singDoor = new obj(singleDoor, 215, 30, 30, 50);
 	promptExit = new textBox(350, story[0]);
 	plantText = new textBox(350, story[1]);
-	//deskText = new textBox(350, story[2]);
+	teachTab = new obj(desk, 250, 250, 50, 50);
+	teachText = new textBox(350, story[2]);
 
 	for(var i = 0; i < deskList.length; i++){
 		for(var j = 0; j < 5; j++){
@@ -332,7 +334,6 @@ void setup(){
 			deskText1[i].push(new textBox(350, deskNotes[i][j]));
 		}
 	}
-	//console.log(deskText);
 
 }
 
@@ -523,10 +524,10 @@ void mathClass() {
 
 
 
-	if(deskList[2][2].checkLeft() && key == 'a'){
-		deskText.display();
+	// if(deskList[2][2].checkLeft() && key == 'a'){
+	// 	deskText.display();
 		
-	}
+	// }
 
 	if (myCharlotte.xpos + myCharlotte.width >= 500 && myCharlotte.ypos + myCharlotte.height > 185 && myCharlotte.ypos < 255){
 		currentScreen = 0;
@@ -542,6 +543,34 @@ void rm3() {
 		currentScreen = 0;
 		myCharlotte.xpos = 500 - myCharlotte.width - 1;
 	}
+	teachTab.display();
+	//console.log(deskList[i][j].xpos);
+	if(teachTab.checkRight()){
+		myCharlotte.xpos = teachTab.xpos - myCharlotte.width;
+		if(keyPressed == true && key == 'a'){
+			teachText.display();
+		}
+		//myCharlotte.xpos = deskList;
+	}
+	else if(teachTab.checkLeft()){
+		myCharlotte.xpos = teachTab.xpos + teachTab.width;
+		if(keyPressed == true && key == 'a'){
+			teachText.display();
+		}
+	}
+	else if(teachTab.checkUp()){	
+		myCharlotte.ypos = teachTab.ypos - myCharlotte.height;
+		if(keyPressed == true && key == 'a'){
+			teachText.display();
+		}
+	}	
+	else if(teachTab.checkDown()){
+		myCharlotte.ypos = teachTab.ypos + teachTab.height;
+		if(keyPressed == true && key == 'a'){
+			teachText.display();
+		} 
+	}
+
 }
 
 void rm4(){
