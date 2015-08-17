@@ -13,7 +13,7 @@ obj pottedPlant;
 textBox promptExit;
 textBox plantText;
 textBox otherNotes = [];
-textBox deskText = [];
+textBox deskText1 = [[],[],[],[]];
 obj deskList = [[],[],[],[]];
 obj randomPaper = [];
 
@@ -31,23 +31,23 @@ var randomNotes = ["meet me after school today. I have to talk to you. I know ab
 					"We need to call a meeting for game design club officers. Our budget is severely restricting our individuality"
 					];
 
-var deskNotes = ["I'm pretty sure we already went over this stuff. The class is such a waste of time",
-				  "Why does he have to be so judgey about other people's questions? god. what a dick.",
+var deskNotes = [["I'm pretty sure we already went over this stuff. The class is such a waste of time",
+				  "Why does he have to be so judgey about other people's questions? god.",
 				  "Hey baby, today under the bleachers? ;)",
-				  "Do you wanna watch Juno with me today?",
-				  "the last episode of the Legend of Korra wrecked me emotionally",
+				  "Do you wanna watch Juno with me today?"],
+				  ["the last episode of the Legend of Korra wrecked me emotionally",
 				  "Personal Essay: How I Got a Girlfriend [in red pen] 'this is not an appropriate topic'",
 				  "Personal Essay: My battle with the APUSH curriculum",
-				  "Personal Essay: My battle with the AMSTED curriculum",
-				  "Personal Essay: My battle with the IB History curriculum",
+				  "Personal Essay: My battle with the AMSTED curriculum"],
+				  ["Personal Essay: My battle with the IB History curriculum",
 				  "Personal Essay: A Change of Scenery - My move when I was 9 years",	
 				  "Personal Essay: Working with Syrian Refugees [in red pen] 'wow!!'",
 				  "This is wack. I don't know why my essay was rejected. Ms Coleman doesn't even know what she's doing",
-				  "Critical Essay - Yams of Wrath: Okonkwo's anger issues ",
-				  "Critical Essay - Milkboy to Milkman: Milkman's coming of age in the Song of Solomon",
+				  "Critical Essay - Yams of Wrath: Okonkwo's anger issues "],
+				  ["Critical Essay - Milkboy to Milkman: Milkman's coming of age in the Song of Solomon",
 				  "Critical Essay - Is Atticus Finch a Racist?!?!?!",
 				  "Critical Essay - The Adventures of a Whiny Rich Boy: the Adventures of Tom Sawyer",
-				  "The Journey of the Paper Crane", 
+				  "The Journey of the Paper Crane"] 
 
 				]
 //switching images for up, down, left, right
@@ -306,7 +306,7 @@ void setup(){
 
 	//random paper notes
 	for(var i = 0; i < 7; i++){
-		randomPaper.push(new obj(paper, random(20, 460), random(80, 450), 30, 30));
+		randomPaper.push(new obj(paper, random(70, 460), random(90, 450), 30, 30));
 	}
 	
 	//random textBoxes too
@@ -324,13 +324,16 @@ void setup(){
 	singDoor = new obj(singleDoor, 215, 30, 30, 50);
 	promptExit = new textBox(350, story[0]);
 	plantText = new textBox(350, story[1]);
-	deskText = new textBox(350, story[2]);
+	//deskText = new textBox(350, story[2]);
 
 	for(var i = 0; i < deskList.length; i++){
 		for(var j = 0; j < 5; j++){
 			deskList[i].push(new obj(desk, 90*i + 30, 120*j + 70, 40, 40));
+			deskText1[i].push(new textBox(350, deskNotes[i][j]));
 		}
 	}
+	//console.log(deskText);
+
 }
 
 void draw(){
@@ -398,13 +401,9 @@ void bigDoor() {
 		}
 				
 	}
-<<<<<<< HEAD
 
 	for(var i = 0; i < 7; i++){
-=======
-	//scattered notes code
-	for(var i = 0; i < 4; i++){
->>>>>>> origin/master
+
 		randomPaper[i].display();
 		if(randomPaper[i].checkRight()){
 			if(keyPressed == true && key == 'a'){
@@ -496,16 +495,28 @@ void mathClass() {
 			//console.log(deskList[i][j].xpos);
 			if(deskList[i][j].checkRight()){
 				myCharlotte.xpos = deskList[i][j].xpos - myCharlotte.width;
+				if(keyPressed == true && key == 'a'){
+					deskText1[i][j].display();
+				}
 				//myCharlotte.xpos = deskList;
 			}
 			else if(deskList[i][j].checkLeft()){
 				myCharlotte.xpos = deskList[i][j].xpos + deskList[i][j].width;
+				if(keyPressed == true && key == 'a'){
+					deskText1[i][j].display();
+				}
 			}
 			else if(deskList[i][j].checkUp()){	
 				myCharlotte.ypos = deskList[i][j].ypos - myCharlotte.height;
+				if(keyPressed == true && key == 'a'){
+					deskText1[i][j].display();
+				}
 			}	
 			else if(deskList[i][j].checkDown()){
-				myCharlotte.ypos = deskList[i][j].ypos + deskList[i][j].height; 
+				myCharlotte.ypos = deskList[i][j].ypos + deskList[i][j].height;
+				if(keyPressed == true && key == 'a'){
+					deskText1[i][j].display();
+				} 
 			}
 		}
 	}
