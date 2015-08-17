@@ -407,8 +407,6 @@ void mathClass() {
 			deskList[i][j].display();
 			//console.log(deskList[i][j].xpos);
 			if(deskList[i][j].checkRight()){
-				console.log(myCharlotte.xpos);
-				console.log(deskList[i][j].xpos - myCharlotte.width);
 				myCharlotte.xpos = deskList[i][j].xpos - myCharlotte.width;
 				//myCharlotte.xpos = deskList;
 			}
@@ -419,9 +417,6 @@ void mathClass() {
 				myCharlotte.ypos = deskList[i][j].ypos - myCharlotte.height;
 			}	
 			else if(deskList[i][j].checkDown()){
-				//exitDoor = true;
-				//console.log("ypos before bump:"+ myCharlotte.ypos);
-				//console.log("ypos after bump" + deskList[i][j] + )
 				myCharlotte.ypos = deskList[i][j].ypos + deskList[i][j].height; 
 
 			}
