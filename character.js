@@ -2,6 +2,7 @@
 PImage forward, right1, right2, left, up;
 PImage objectImage, plant, desks, door; 
 PImage frontDoor, mathRm, rmThr; 
+PImage paper;
 
 
 
@@ -11,12 +12,20 @@ obj myObj;
 obj pottedPlant;
 textBox promptExit;
 textBox plantText;
+textBox otherNotes = [];
 obj deskList = [[],[],[],[]];
+obj randomPaper = [];
 
 boolean exitDoor = false;
 String codeText = "";
 var story = ["Type a four letter code to get out. Press shift to go back to room", "Looks like there's a piece of paper in here", 
 			"There's a peice of paper in the desk. It reads: 'do you want to study today after class?'"];
+
+var randomNotes = ["meet me after school today", 
+					"Please have this signed by Tuesday", 
+					"Can I copy off your math homework?? :) <3",
+					"I'm screwed for the physics test. F U C K"
+					];
 //switching images for up, down, left, right
 var valueImage = 0;
 var xpos = 0;
@@ -267,6 +276,18 @@ void setup(){
 	plant = loadImage('plant.png');
 	desk = loadImage('desk2.png');
 	door = loadImage('greyD.png');
+	paper = loadImage('Paper.png');
+
+	//random paper notes
+	for(var i = 0; i < 4; i++){
+		randomPaper.push(new obj(paper, random(20, 460), random(50, 450), 30, 30));
+	}
+	
+	//random textBoxes too
+	for(var i = 0; i < 4; i++){
+		otherNotes.push(new textBox(350, story[i]));
+	}
+
 
 	//textAlign(CENTER, CENTER);
 	textSize(15);
@@ -351,6 +372,36 @@ void bigDoor() {
 				}
 				
 	}
+
+	for(var i = 0; i < 4; i++){
+		randomPaper[i].display();
+		if(randomPaper[i].checkRight()){
+			if(keyPressed == true && key == 'a'){
+				otherNotes[i].display();
+			}
+				
+		}
+		else if(randomPaper[i].checkLeft()){
+			if(keyPressed == true && key == 'a'){
+				otherNotes[i].display();
+			}
+				
+		}
+		else if(randomPaper[i].checkUp()){	
+			if(keyPressed == true && key == 'a'){
+				otherNotes[i].display();
+			}
+					
+		}	
+		else if(randomPaper[i].checkDown()){
+			if(keyPressed == true && key == 'a'){
+				otherNotes[i].display();
+			}
+					
+		}
+				
+	}
+
 
 	//potted plant actions
 	if(pottedPlant.checkLeft()){
