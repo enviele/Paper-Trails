@@ -8,6 +8,7 @@ PImage objectImage;
 PImage plant;
 PImage frontDoor;
 PImage mathRm;
+PImage rmThr;
 
 //objects
 charlotte myCharlotte;
@@ -255,6 +256,7 @@ void setup(){
 	smooth();
 	frontDoor = loadImage("lockerRm.png");
 	mathRm = loadImage("basicArtbackground.png");
+	rmThr = loadImage("background2.png");
 		
 	//sprites for character 
 	forward = loadImage('charlotteF.png');
@@ -380,9 +382,7 @@ void mathClass() {
 
 void rm3() {
 	//controls third room
-	background(0, 0, 255);
-	fill(255, 255, 0);
-	triangle(150, 100, 150, 400, 450, 250);
+	image(rmThr, 0, 0, 500, 500);
 }
 
 
