@@ -483,7 +483,6 @@ void mathClass() {
 		}
 	}
 	if(deskList[2][2].checkLeft() && key == 'a'){
-		console.log("found you!");
 		deskText.display();
 		//myCharlotte.ypos = pottedPlant.ypos + pottedPlant.height;
 	}
