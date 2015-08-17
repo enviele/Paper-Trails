@@ -8,7 +8,11 @@ PImage objectImage;
 PImage plant;
 PImage frontDoor;
 PImage mathRm;
+
 PImage desks;
+
+PImage rmThr;
+
 
 //objects
 charlotte myCharlotte;
@@ -257,6 +261,7 @@ void setup(){
 	smooth();
 	frontDoor = loadImage("lockerRm.png");
 	mathRm = loadImage("basicArtbackground.png");
+	rmThr = loadImage("background2.png");
 		
 	//sprites for character 
 	forward = loadImage('charlotteF.png');
@@ -353,12 +358,16 @@ void bigDoor() {
 		myCharlotte.ypos = pottedPlant.ypos - myCharlotte.height;
 	}	
 	else if(pottedPlant.checkDown()){
-
 		myCharlotte.ypos = pottedPlant.ypos + pottedPlant.height;
-		
-
 	}
-
+	if (myCharlotte.xpos <= 0 && myCharlotte.ypos + myCharlotte.height > 185 && myCharlotte.ypos < 255){
+		currentScreen = 1;
+		myCharlotte.xpos = 500 - myCharlotte.width;
+	}
+	else if (myCharlotte.xpos + myCharlotte.width >= 500 && myCharlotte.ypos + myCharlotte.height > 410 && myCharlotte.ypos < 500){
+		currentScreen = 2;
+		myCharlotte.xpos = 0;
+	}
 	if (exitDoor) {
 		promptExit.display();	
 		endingKeyCode(); 
@@ -395,9 +404,12 @@ void mathClass() {
 
 void rm3() {
 	//controls third room
+
 	background(0, 0, 255);
 	fill(255, 255, 0);
 	triangle(150, 100, 150, 400, 450, 250);
+
+	image(rmThr, 0, 0, 500, 500);
 
 }
 
@@ -424,5 +436,10 @@ void keyPressed(){
 		else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT) {
 			    codeText = codeText + String(key);
 		}
+	}
+	else if (key == 'a'){
+		//to figure out the coordinates of stationary objects
+		console.log(myCharlotte.xpos);
+		console.log(myCharlotte.ypos);
 	}
 }
