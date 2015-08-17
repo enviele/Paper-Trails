@@ -319,7 +319,7 @@ void setup(){
 	textSize(15);
 	fill(0);
 	myCharlotte = new charlotte(forward,right1, left,up, 250, 250, 31, 47);
-	doubDoor = new obj(door, 200, 40, 50, 50);
+	doubDoor = new obj(door, 200, 40, 50, 53);
 	pottedPlant = new obj(plant, 5, 435, 40, 60);
 	singDoor = new obj(singleDoor, 215, 30, 30, 50);
 	promptExit = new textBox(350, story[0]);
