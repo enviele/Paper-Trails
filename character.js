@@ -19,6 +19,7 @@ charlotte myCharlotte;
 obj myObj;
 obj pottedPlant;
 textBox promptExit;
+textBox plantText;
 obj deskList = [[],[],[],[]];
 
 boolean exitDoor = false;
@@ -281,6 +282,7 @@ void setup(){
 	myObj = new obj(objectImage, 200, 200, 100, 100);
 	pottedPlant = new obj(plant, 5, 435, 40, 60);
 	promptExit = new textBox(350, "type a four letter code to get out");
+	plantText = new textBox(350, "this is a potted plant");
 
 	for(var i = 0; i < deskList.length; i++){
 		for(var j = 0; j < 5; j++){
@@ -354,8 +356,13 @@ void bigDoor() {
 
 	}
 
+	//potted plant actions
 	if(pottedPlant.checkLeft()){
 		myCharlotte.xpos = pottedPlant.xpos + pottedPlant.width;
+		if(keyPressed == true && key == 'a'){
+			console.log("this is a potted plant");
+			plantText.display();
+		}
 	}
 	else if(pottedPlant.checkUp()){	
 		myCharlotte.ypos = pottedPlant.ypos - myCharlotte.height;
@@ -363,6 +370,8 @@ void bigDoor() {
 	else if(pottedPlant.checkDown()){
 		myCharlotte.ypos = pottedPlant.ypos + pottedPlant.height;
 	}
+
+	//switching screens
 	if (myCharlotte.xpos <= 0 && myCharlotte.ypos + myCharlotte.height > 185 && myCharlotte.ypos < 255){
 		currentScreen = 1;
 		myCharlotte.xpos = 500 - myCharlotte.width;
@@ -375,6 +384,7 @@ void bigDoor() {
 		currentScreen = 3;
 		myCharlotte.ypos = 0;
 	}
+
 	if (exitDoor) {
 		promptExit.display();	
 		endingKeyCode(); 
@@ -460,9 +470,9 @@ void keyPressed(){
 			    codeText = codeText + String(key);
 		}
 	}
-	else if (key == 'a'){
-		//to figure out the coordinates of stationary objects
-		console.log(myCharlotte.xpos);
-		console.log(myCharlotte.ypos);
-	}
+	// else if (key == 'a'){
+	// 	//to figure out the coordinates of stationary objects
+	// 	console.log(myCharlotte.xpos);
+	// 	console.log(myCharlotte.ypos);
+	// }
 }
