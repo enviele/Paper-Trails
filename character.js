@@ -1,6 +1,6 @@
 //images used
 PImage forward, right1, right2, left, up;
-PImage objectImage, plant, desks, door; 
+PImage objectImage, plant, desks, door, singleDoor; 
 PImage frontDoor, mathRm, rmThr, rmFor; 
 PImage paper;
 
@@ -278,6 +278,7 @@ void setup(){
 	desk = loadImage('desk2.png');
 	door = loadImage('greyD.png');
 	paper = loadImage('Paper.png');
+	singleDoor = loadImage('singleD.png');
 
 	//random paper notes
 	for(var i = 0; i < 4; i++){
@@ -294,8 +295,9 @@ void setup(){
 	textSize(15);
 	fill(0);
 	myCharlotte = new charlotte(forward,right1, left,up, 250, 250, 31, 47);
-	doubDoor = new obj(door, 200, 55, 50, 50);
+	doubDoor = new obj(door, 200, 40, 50, 50);
 	pottedPlant = new obj(plant, 5, 435, 40, 60);
+	singDoor = new obj(singleDoor, 215, 30, 30, 50);
 	promptExit = new textBox(350, story[0]);
 	plantText = new textBox(350, story[1]);
 	deskText = new textBox(350, story[2]);
@@ -339,8 +341,8 @@ void draw(){
 		else if(myCharlotte.xpos + myCharlotte.width > 500){
 			myCharlotte.xpos = 500 - myCharlotte.width;
 		}
-		else if(myCharlotte.ypos < 50){
-			myCharlotte.ypos = 50;
+		else if(myCharlotte.ypos < 80){
+			myCharlotte.ypos = 80;
 		}
 		else if(myCharlotte.ypos + myCharlotte.height >= 500){
 			myCharlotte.ypos = 500 - myCharlotte.height;
@@ -356,24 +358,23 @@ void bigDoor() {
 	pottedPlant.display();
 	//double doors 
 	if(doubDoor.checkRight()){
-				myCharlotte.xpos = doubDoor.xpos - myCharlotte.width;
-				//myCharlotte.xpos = deskList;
+		myCharlotte.xpos = doubDoor.xpos - myCharlotte.width;
 	}
 	else if(doubDoor.checkLeft()){
-				myCharlotte.xpos = doubDoor.xpos + doubDoor.width;
+		myCharlotte.xpos = doubDoor.xpos + doubDoor.width;
 	}
 	else if(doubDoor.checkUp()){	
-				myCharlotte.ypos = doubDoor.ypos - doubDoor.height;
+		myCharlotte.ypos = doubDoor.ypos - doubDoor.height;
 	}	
 	else if(doubDoor.checkDown()){
-				myCharlotte.ypos = doubDoor.ypos + doubDoor.height;
-				if(keyPressed && key =='a'){
-					exitDoor = true;
-					promptExit.display(); 
-				}
+		myCharlotte.ypos = doubDoor.ypos + doubDoor.height;
+		if(keyPressed && key =='a'){
+			exitDoor = true;
+			promptExit.display(); 
+		}
 				
 	}
-
+	//scattered notes code
 	for(var i = 0; i < 4; i++){
 		randomPaper[i].display();
 		if(randomPaper[i].checkRight()){
@@ -402,8 +403,6 @@ void bigDoor() {
 		}
 				
 	}
-
-
 	//potted plant actions
 	if(pottedPlant.checkLeft()){
 		myCharlotte.xpos = pottedPlant.xpos + pottedPlant.width;
@@ -429,9 +428,8 @@ void bigDoor() {
 	}
 	else if (myCharlotte.xpos < 260 && myCharlotte.xpos + myCharlotte.width > 205 && myCharlotte.ypos + myCharlotte.height >= 500){
 		currentScreen = 3;
-		myCharlotte.ypos = 0;
+		myCharlotte.ypos = 80;
 	}
-
 	if (exitDoor) {
 		promptExit.display();	
 		endingKeyCode(); 
@@ -486,16 +484,30 @@ void mathClass() {
 		deskText.display();
 		//myCharlotte.ypos = pottedPlant.ypos + pottedPlant.height;
 	}
+
+	if (myCharlotte.xpos + myCharlotte.width >= 500 && myCharlotte.ypos + myCharlotte.height > 185 && myCharlotte.ypos < 255){
+		currentScreen = 0;
+		myCharlotte.xpos = 0;
+	}
 }
 
 void rm3() {
 	//controls third room
 	image(rmThr, 0, 0, 500, 500);
+	if (myCharlotte.xpos <= 0 && myCharlotte.ypos + myCharlotte.height > 240 && myCharlotte.ypos < 295){
+		currentScreen = 0;
+		myCharlotte.xpos = 500 - myCharlotte.width;
+	}
 }
 
 void rm4(){
 	//controls forth room
 	image(rmFor, 0, 0, 500, 500);
+	singDoor.display();
+	if (myCharlotte.xpos <= 260 && myCharlotte.xpos + myCharlotte.width > 205 && myCharlotte.ypos <= 80){
+		currentScreen = 0;
+		myCharlotte.ypos = 500 - myCharlotte.height;
+	}
 }
 
 
@@ -529,5 +541,7 @@ void keyPressed(){
 		//to figure out the coordinates of stationary objects
 		console.log(myCharlotte.xpos);
 		console.log(myCharlotte.ypos);
+		//to figure out the coordinate of the wall
+		console.log(doubDoor.ypos + doubDoor.height);
 	}
 }
