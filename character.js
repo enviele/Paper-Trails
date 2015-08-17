@@ -1,8 +1,8 @@
 //images used
 PImage forward, right1, right2, left, up;
-PImage objectImage, plant, desks, door, singleDoor; 
+PImage objectImage, plant, desks, door, singleDoor, paper; 
 PImage frontDoor, mathRm, rmThr, rmFor; 
-PImage paper;
+PImage uLose;
 
 
 
@@ -18,6 +18,7 @@ obj deskList = [[],[],[],[]];
 obj randomPaper = [];
 
 boolean exitDoor = false;
+boolean gameOver = false;
 String codeText = "";
 var story = ["Type a four letter code to get out. Press shift to go back to room", 
 			"Meet me today after math class. Don't forget your locker combo: 420. You even forgot your locker number! Here: I am the beginning of the end, the end of every place. I am the beginning of eternity, the end of time and space. What am I? the answer will lead to your locker number. :) <3 S.", 
@@ -67,7 +68,7 @@ function timer(secs){
     currentTime = 0;
   }
 }
-//todos los functions for things
+
 function smallRect (xVal, yVal, red, green, blue) {
 	fill(red, green, blue);
 	rect(xVal, yVal, 60, 150);
@@ -291,6 +292,7 @@ void setup(){
 	mathRm = loadImage("basicArtbackground.png");
 	rmThr = loadImage("background2.png");
 	rmFor = loadImage("elizabethBackground.png");
+	uLose = loadImage("GameOverScreen.png");
 		
 	//sprites for character 
 	forward = loadImage('charlotteF.png');
@@ -470,12 +472,13 @@ void bigDoor() {
 		text(codeText[1], 170, 150);
 		text(codeText[2], 240, 150);
 		text(codeText[3], 310, 150);
-		if(codeText.length ==4){
+		if(codeText.length == 4){
 		  	if(codeText == "59sc"){
 		  		console.log("you win");
 			}
 			else{
-			  	console.log("try again");
+				gameOver = true;
+	  			image(uLose, 0, 0, 500, 500);
 			  	codeText = "";
 			}
   		}
