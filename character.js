@@ -398,13 +398,7 @@ void bigDoor() {
 		}
 				
 	}
-<<<<<<< HEAD
-
 	for(var i = 0; i < 7; i++){
-=======
-	//scattered notes code
-	for(var i = 0; i < 4; i++){
->>>>>>> origin/master
 		randomPaper[i].display();
 		if(randomPaper[i].checkRight()){
 			if(keyPressed == true && key == 'a'){
