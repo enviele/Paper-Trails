@@ -1,7 +1,7 @@
 //images used
 PImage forward, right1, right2, left, up;
 PImage objectImage, plant, desks, door; 
-PImage frontDoor, mathRm, rmThr; 
+PImage frontDoor, mathRm, rmThr, rmFor; 
 PImage paper;
 
 
@@ -265,6 +265,7 @@ void setup(){
 	frontDoor = loadImage("lockerRm.png");
 	mathRm = loadImage("basicArtbackground.png");
 	rmThr = loadImage("background2.png");
+	rmFor = loadImage("elizabethBackground.png");
 		
 	//sprites for character 
 	forward = loadImage('charlotteF.png');
@@ -495,9 +496,7 @@ void rm3() {
 
 void rm4(){
 	//controls forth room
-	background(0, 0, 255);
-	fill(255, 255, 0);
-	triangle(150, 100, 150, 400, 450, 250);
+	image(rmFor, 0, 0, 500, 500);
 }
 
 
