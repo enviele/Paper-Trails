@@ -304,6 +304,9 @@ void draw(){
 		case 2: 
 			rm3(); 
 			break;
+		case 3:
+			rm4();
+			break;
 		default: 
 			background(0); 
 			break;
@@ -404,20 +407,21 @@ void mathClass() {
 
 void rm3() {
 	//controls third room
+	image(rmThr, 0, 0, 500, 500);
+}
 
+void rm4(){
+	//controls forth room
 	background(0, 0, 255);
 	fill(255, 255, 0);
 	triangle(150, 100, 150, 400, 450, 250);
-
-	image(rmThr, 0, 0, 500, 500);
-
 }
 
 
 
 void mousePressed() {
   currentScreen++;
-  if (currentScreen > 2) { 
+  if (currentScreen > 3) { 
     currentScreen = 0; 
   }
 }
