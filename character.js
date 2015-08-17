@@ -345,12 +345,16 @@ void bigDoor() {
 		myCharlotte.ypos = pottedPlant.ypos - myCharlotte.height;
 	}	
 	else if(pottedPlant.checkDown()){
-
 		myCharlotte.ypos = pottedPlant.ypos + pottedPlant.height;
-		
-
 	}
-
+	if (myCharlotte.xpos <= 0 && myCharlotte.ypos + myCharlotte.height > 185 && myCharlotte.ypos < 255){
+		currentScreen = 1;
+		myCharlotte.xpos = 500 - myCharlotte.width;
+	}
+	else if (myCharlotte.xpos + myCharlotte.width >= 500 && myCharlotte.ypos + myCharlotte.height > 410 && myCharlotte.ypos < 500){
+		currentScreen = 2;
+		myCharlotte.xpos = 0;
+	}
 	if (exitDoor) {
 		promptExit.display();	
 		endingKeyCode(); 
@@ -408,5 +412,10 @@ void keyPressed(){
 		else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT) {
 			    codeText = codeText + String(key);
 		}
+	}
+	else if (key == 'a'){
+		//to figure out the coordinates of stationary objects
+		console.log(myCharlotte.xpos);
+		console.log(myCharlotte.ypos);
 	}
 }
