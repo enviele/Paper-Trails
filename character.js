@@ -336,15 +336,16 @@ void bigDoor() {
 
 	}
 
-	 if(pottedPlant.checkLeft()){
+	if(pottedPlant.checkLeft()){
 		myCharlotte.xpos = pottedPlant.xpos + pottedPlant.width;
 	}
 	else if(pottedPlant.checkUp()){	
 		myCharlotte.ypos = pottedPlant.ypos - myCharlotte.height;
 	}	
 	else if(pottedPlant.checkDown()){
-		//exitDoor = true;
-		myCharlotte.ypos = pottedPlant.ypos + pottedPlant.height; 
+
+		myCharlotte.ypos = pottedPlant.ypos + pottedPlant.height;
+		
 
 	}
 
