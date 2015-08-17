@@ -19,7 +19,7 @@ charlotte myCharlotte;
 obj myObj;
 obj pottedPlant;
 textBox promptExit;
-obj deskList = [[],[],[],[],[]];
+obj deskList = [[],[],[],[]];
 
 boolean exitDoor = false;
 String codeText = "";
@@ -282,9 +282,9 @@ void setup(){
 	pottedPlant = new obj(plant, 5, 435, 40, 60);
 	promptExit = new textBox(350, "type a four letter code to get out");
 
-	for(var i = 0; i < 5; i++){
+	for(var i = 0; i < deskList.length; i++){
 		for(var j = 0; j < 5; j++){
-			deskList[i].push(new obj(desk, 90*i + 30, 70*j + 70, 50, 50));
+			deskList[i].push(new obj(desk, 90*i + 30, 120*j + 70, 40, 40));
 		}
 
 	}
@@ -402,9 +402,29 @@ void bigDoor() {
 void mathClass() {
 	//controls second room
 	image(mathRm, 0, 0, 500, 500);
-	for(var i = 0; i < 5; i++){
+	for(var i = 0; i < deskList.length; i++){
 		for(var j = 0; j < 5; j++){
 			deskList[i][j].display();
+			//console.log(deskList[i][j].xpos);
+			if(deskList[i][j].checkRight()){
+				console.log(myCharlotte.xpos);
+				console.log(deskList[i][j].xpos - myCharlotte.width);
+				myCharlotte.xpos = deskList[i][j].xpos - myCharlotte.width;
+				//myCharlotte.xpos = deskList;
+			}
+			else if(deskList[i][j].checkLeft()){
+				myCharlotte.xpos = deskList[i][j].xpos + deskList[i][j].width;
+			}
+			else if(deskList[i][j].checkUp()){	
+				myCharlotte.ypos = deskList[i][j].ypos - myCharlotte.height;
+			}	
+			else if(deskList[i][j].checkDown()){
+				//exitDoor = true;
+				//console.log("ypos before bump:"+ myCharlotte.ypos);
+				//console.log("ypos after bump" + deskList[i][j] + )
+				myCharlotte.ypos = deskList[i][j].ypos + deskList[i][j].height; 
+
+			}
 		}
 	}
 }
