@@ -1,17 +1,8 @@
 //images used
-PImage forward;
-PImage right1;
-PImage right2;
-PImage left;
-PImage up;
-PImage objectImage;
-PImage plant;
-PImage frontDoor;
-PImage mathRm;
+PImage forward, right1, right2, left, up;
+PImage objectImage, plant, desks, door; 
+PImage frontDoor, mathRm, rmThr; 
 
-PImage desks;
-
-PImage rmThr;
 
 
 //objects
@@ -24,6 +15,8 @@ obj deskList = [[],[],[],[]];
 
 boolean exitDoor = false;
 String codeText = "";
+var story = ["Type a four letter code to get out", "Looks like there's a piece of paper in here", 
+			"My old desk. It brings back so many bad memories"];
 //switching images for up, down, left, right
 var valueImage = 0;
 var xpos = 0;
@@ -271,26 +264,25 @@ void setup(){
 	up = loadImage('charlotteB.png');
 
 	//holder for the objects. Use for loops in order to fill class with classrooms
-	objectImage = loadImage('kitty.jpg');
 	plant = loadImage('plant.png');
 	desk = loadImage('desk2.png');
+	door = loadImage('greyD.png');
 
 	textAlign(CENTER, CENTER);
 	textSize(20);
 	fill(0);
-	myCharlotte = new charlotte(forward,right1, left,up, 0, 0, 31, 47);
-	myObj = new obj(objectImage, 200, 200, 100, 100);
+	myCharlotte = new charlotte(forward,right1, left,up, 250, 250, 31, 47);
+	doubDoor = new obj(door, 214, 53, 95, 123);
 	pottedPlant = new obj(plant, 5, 435, 40, 60);
-	promptExit = new textBox(350, "type a four letter code to get out");
-	plantText = new textBox(350, "this is a potted plant");
+	promptExit = new textBox(350, story[0]);
+	plantText = new textBox(350, story[1]);
+	deskText = new textBox(350, story[2]);
 
 	for(var i = 0; i < deskList.length; i++){
 		for(var j = 0; j < 5; j++){
 			deskList[i].push(new obj(desk, 90*i + 30, 120*j + 70, 40, 40));
 		}
-
 	}
-
 }
 
 void draw(){
@@ -325,8 +317,8 @@ void draw(){
 		else if(myCharlotte.xpos + myCharlotte.width > 500){
 			myCharlotte.xpos = 500 - myCharlotte.width;
 		}
-		else if(myCharlotte.ypos < 0){
-			myCharlotte.ypos = 0;
+		else if(myCharlotte.ypos < 50){
+			myCharlotte.ypos = 50;
 		}
 		else if(myCharlotte.ypos + myCharlotte.height >= 500){
 			myCharlotte.ypos = 500 - myCharlotte.height;
@@ -337,30 +329,19 @@ void draw(){
 void bigDoor() {
 	//controls the first room
 	image(frontDoor, 0, 0, 500, 500);
-	
-	myObj.display();
+	//Displaying objects
+	doubDoor.display();
 	pottedPlant.display();
-	if(myObj.checkRight()){
-		//console.log(myCharlotte.xpos);
-		myCharlotte.xpos = myObj.xpos - myCharlotte.width;
-	}
-	else if(myObj.checkLeft()){
-		myCharlotte.xpos = myObj.xpos + myObj.width;
-	}
-	else if(myObj.checkUp()){	
-		myCharlotte.ypos = myObj.ypos - myCharlotte.height;
-	}	
-	else if(myObj.checkDown()){
+	//double doors 
+	if(doubDoor.checkDown() && key == 'a'){
 		exitDoor = true;
 		myCharlotte.ypos = myObj.ypos + myObj.height; 
-
 	}
 
 	//potted plant actions
 	if(pottedPlant.checkLeft()){
 		myCharlotte.xpos = pottedPlant.xpos + pottedPlant.width;
 		if(keyPressed == true && key == 'a'){
-			console.log("this is a potted plant");
 			plantText.display();
 		}
 	}
@@ -396,7 +377,8 @@ void bigDoor() {
 		if(codeText.length ==4){
 		  	if(codeText == "59sc"){
 		  		console.log("you win");
-			}else{
+			}
+			else{
 			  	console.log("try again");
 			  	codeText = "";
 			}
@@ -428,9 +410,13 @@ void mathClass() {
 			}	
 			else if(deskList[i][j].checkDown()){
 				myCharlotte.ypos = deskList[i][j].ypos + deskList[i][j].height; 
-
 			}
 		}
+	}
+	if(deskList[3][0].checkLeft() && key == 'a'){
+		console.log("found you!");
+		deskText.display();
+		myCharlotte.ypos = pottedPlant.ypos + pottedPlant.height;
 	}
 }
 
@@ -460,19 +446,22 @@ void keyPressed(){
 		console.log("keyPressed");
 		if (keyCode == BACKSPACE) {
 		    if (codeText.length > 0) {
-		      codeText = codeText.substring(0, codeText.length()-1);
+		    codeText = codeText.substring(0, codeText.length()-1);
 		    }
 		} 
 		else if (keyCode == DELETE) {
-			    codeText = "";
+			codeText = "";
 		} 
 		else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT) {
-			    codeText = codeText + String(key);
+		    codeText = codeText + String(key);
+		}
+		else if (keyCode == SHIFT) {
+			exitDoor = false;
 		}
 	}
-	// else if (key == 'a'){
-	// 	//to figure out the coordinates of stationary objects
-	// 	console.log(myCharlotte.xpos);
-	// 	console.log(myCharlotte.ypos);
-	// }
+	else if (key == 'q'){
+		//to figure out the coordinates of stationary objects
+		console.log(myCharlotte.xpos);
+		console.log(myCharlotte.ypos);
+	}
 }
