@@ -319,7 +319,7 @@ void setup(){
 	textSize(15);
 	fill(0);
 	myCharlotte = new charlotte(forward,right1, left,up, 250, 250, 31, 47);
-	doubDoor = new obj(door, 200, 40, 50, 50);
+	doubDoor = new obj(door, 200, 40, 50, 53);
 	pottedPlant = new obj(plant, 5, 435, 40, 60);
 	singDoor = new obj(singleDoor, 215, 30, 30, 50);
 	promptExit = new textBox(350, story[0]);
@@ -530,7 +530,7 @@ void mathClass() {
 
 	if (myCharlotte.xpos + myCharlotte.width >= 500 && myCharlotte.ypos + myCharlotte.height > 185 && myCharlotte.ypos < 255){
 		currentScreen = 0;
-		myCharlotte.xpos = 0;
+		myCharlotte.xpos = 1;
 	}
 
 }
@@ -540,7 +540,7 @@ void rm3() {
 	image(rmThr, 0, 0, 500, 500);
 	if (myCharlotte.xpos <= 0 && myCharlotte.ypos + myCharlotte.height > 240 && myCharlotte.ypos < 295){
 		currentScreen = 0;
-		myCharlotte.xpos = 500 - myCharlotte.width;
+		myCharlotte.xpos = 500 - myCharlotte.width - 1;
 	}
 }
 
@@ -550,17 +550,8 @@ void rm4(){
 	singDoor.display();
 	if (myCharlotte.xpos <= 260 && myCharlotte.xpos + myCharlotte.width > 205 && myCharlotte.ypos <= 80){
 		currentScreen = 0;
-		myCharlotte.ypos = 500 - myCharlotte.height;
+		myCharlotte.ypos = 500 - myCharlotte.height - 1;
 	}
-}
-
-
-
-void mousePressed() {
-  currentScreen++;
-  if (currentScreen > 3) { 
-    currentScreen = 0; 
-  }
 }
 
 void keyPressed(){
