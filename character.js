@@ -8,12 +8,14 @@ PImage objectImage;
 PImage plant;
 PImage frontDoor;
 PImage mathRm;
+PImage desks;
 
 //objects
 charlotte myCharlotte;
 obj myObj;
 obj pottedPlant;
 textBox promptExit;
+obj deskList = [[],[],[],[],[]];
 
 boolean exitDoor = false;
 String codeText = "";
@@ -265,6 +267,7 @@ void setup(){
 	//holder for the objects. Use for loops in order to fill class with classrooms
 	objectImage = loadImage('kitty.jpg');
 	plant = loadImage('plant.png');
+	desk = loadImage('desk2.png');
 
 	textAlign(CENTER, CENTER);
 	textSize(20);
@@ -273,6 +276,13 @@ void setup(){
 	myObj = new obj(objectImage, 200, 200, 100, 100);
 	pottedPlant = new obj(plant, 5, 435, 40, 60);
 	promptExit = new textBox(350, "type a four letter code to get out");
+
+	for(var i = 0; i < 5; i++){
+		for(var j = 0; j < 5; j++){
+			deskList[i].push(new obj(desk, 90*i + 30, 70*j + 70, 50, 50));
+		}
+
+	}
 
 }
 
@@ -376,6 +386,11 @@ void bigDoor() {
 void mathClass() {
 	//controls second room
 	image(mathRm, 0, 0, 500, 500);
+	for(var i = 0; i < 5; i++){
+		for(var j = 0; j < 5; j++){
+			deskList[i][j].display();
+		}
+	}
 }
 
 void rm3() {
@@ -383,6 +398,7 @@ void rm3() {
 	background(0, 0, 255);
 	fill(255, 255, 0);
 	triangle(150, 100, 150, 400, 450, 250);
+
 }
 
 
