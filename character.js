@@ -1,14 +1,20 @@
+//images used
 PImage forward;
 PImage right1;
 PImage right2;
 PImage left;
 PImage up;
 PImage objectImage;
+PImage plant;
 PImage frontDoor;
 PImage mathRm;
+
+//objects
 charlotte myCharlotte;
 obj myObj;
+obj pottedPlant;
 textBox promptExit;
+
 boolean exitDoor = false;
 String codeText = "";
 //switching images for up, down, left, right
@@ -258,12 +264,14 @@ void setup(){
 
 	//holder for the objects. Use for loops in order to fill class with classrooms
 	objectImage = loadImage('kitty.jpg');
+	plant = loadImage('plant.png');
 
 	textAlign(CENTER, CENTER);
 	textSize(20);
 	fill(0);
 	myCharlotte = new charlotte(forward,right1, left,up, 0, 0, 31, 47);
 	myObj = new obj(objectImage, 200, 200, 100, 100);
+	pottedPlant = new obj(plant, 5, 435, 40, 60);
 	promptExit = new textBox(350, "type a four letter code to get out");
 
 }
@@ -309,9 +317,9 @@ void draw(){
 void bigDoor() {
 	//controls the first room
 	image(frontDoor, 0, 0, 500, 500);
-	fill(255, 0, 0);
-	rect(200, 200, 58, 108);
+	
 	myObj.display();
+	pottedPlant.display();
 	if(myObj.checkRight()){
 		//console.log(myCharlotte.xpos);
 		myCharlotte.xpos = myObj.xpos - myCharlotte.width;
@@ -327,6 +335,19 @@ void bigDoor() {
 		myCharlotte.ypos = myObj.ypos + myObj.height; 
 
 	}
+
+	 if(pottedPlant.checkLeft()){
+		myCharlotte.xpos = pottedPlant.xpos + pottedPlant.width;
+	}
+	else if(pottedPlant.checkUp()){	
+		myCharlotte.ypos = pottedPlant.ypos - myCharlotte.height;
+	}	
+	else if(pottedPlant.checkDown()){
+		//exitDoor = true;
+		myCharlotte.ypos = pottedPlant.ypos + pottedPlant.height; 
+
+	}
+
 	if (exitDoor) {
 		promptExit.display();	
 		endingKeyCode(); 
