@@ -449,9 +449,11 @@ void bigDoor() {
 			myCharlotte.ypos = lockerList[i].ypos + lockerList[i].height;
 		}
 		if(lockerRoom){
+			promptLock.display();
 			if(lockCode.length == 3){
 			  	if(lockCode == lockerCodes[i]){
 			  		console.log("yatta! I remember my locker combo!");
+			  		lockerRoom = false;
 				}
 				else{
 					console.log("nope wrong number");
