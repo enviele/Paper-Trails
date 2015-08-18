@@ -12,17 +12,23 @@ charlotte myCharlotte;
 obj teachTab;
 obj pottedPlant;
 textBox promptExit;
+textBox promptLock;
 textBox plantText;
 textBox otherNotes = [];
 textBox deskText1 = [[],[],[],[]];
 obj deskList = [[],[],[],[]];
 obj randomPaper = [];
 obj lockerList = [];
-obj lockerLast;
+
 
 boolean exitDoor = false;
 boolean gameOver = false;
+boolean lockerRoom = false;
+
 String codeText = "";
+String lockCode = "";
+
+var lockerCodes = ["666", "153", "248", "206", "420"];
 var story = ["Type a four letter code to get out. Press shift to go back to room", 
 			"Meet me today after math class. Don't forget your locker combo: 420. You even forgot your locker number! Here: I am the beginning of the end, the end of every place. I am the beginning of eternity, the end of time and space. What am I? the answer will lead to your locker number. :) <3 S.", 
 			"There's a test on the table. Name: Charlotte, Grade: F"];
@@ -47,7 +53,7 @@ var deskNotes = [["I'm pretty sure we already went over this stuff. The class is
 				  ["Personal Essay: My battle with the IB History curriculum",
 				  "Personal Essay: A Change of Scenery - My move when I was 9 years old",	
 				  "Personal Essay: Working with Syrian Refugees [in red pen] 'wow!!'",
-				  "This is wack. I don't know why my essay was rejected. Ms Coleman doesn't even know what she's doing",
+				  "This is dumb. I don't know why my essay was rejected. Ms Coleman doesn't even know what she's doing",
 				  "Critical Essay - Yams of Wrath: Okonkwo's anger issues "],
 				  ["Critical Essay - Milkboy to Milkman: Milkman's coming of age in the Song of Solomon",
 				  "Critical Essay - Is Atticus Finch a Racist?!?!?!",
@@ -315,7 +321,7 @@ void setup(){
 
 	//random paper notes
 	for(var i = 0; i < 7; i++){
-		randomPaper.push(new obj(paper, random(70, 430), random(90, 430), 30, 30));
+		randomPaper.push(new obj(paper, random(70, 400), random(90, 400), 30, 30));
 	}
 	
 	//random textBoxes too
@@ -325,11 +331,11 @@ void setup(){
 
 	//initializing the locker objects
 	for(var i = 0; i < 4; i++){
-		lockerList.push(new obj(locker, 450, 30*i + 310, 30, 30));
+		lockerList.push(new obj(locker, 460, 30*i + 330, 30, 30));
 
 	}
 
-
+	lockerList.push(new obj(endLocker, 460, 450, 30, 40));
 	//textAlign(CENTER, CENTER);
 	textSize(15);
 	fill(0);
@@ -341,7 +347,8 @@ void setup(){
 	plantText = new textBox(350, story[1]);
 	teachTab = new obj(desk, 250, 250, 50, 50);
 	teachText = new textBox(350, story[2]);
-	lockerLast = new obj(endLocker, 450, 430, 30, 40);
+	promptLock = new textBox(350, "Please enter the locker combination" + lockCode);
+
 
 	for(var i = 0; i < deskList.length; i++){
 		for(var j = 0; j < 5; j++){
@@ -418,10 +425,27 @@ void bigDoor() {
 				
 	}
 
-	for(var i = 0; i < 4; i++){
+	for(var i = 0; i < lockerList.length; i++){
 		lockerList[i].display();
+		if(lockerList[i].checkRight()){
+			myCharlotte.xpos = lockerList[i].xpos - myCharlotte.width;
+			if(keyPressed && key == 'a' ){
+				lockerRoom = true;
+				promptLock.display();
+			}
+		}
+		else if(lockerList[i].checkUp()){	
+			myCharlotte.ypos = lockerList[i].ypos - lockerList[i].height;
+		}	
+		else if(lockerList[i].checkDown()){
+			myCharlotte.ypos = lockerList[i].ypos + lockerList[i].height;
+			// if(keyPressed && key =='a'){
+			// 	exitDoor = true;
+			// 	promptExit.display(); 
+			// }
+		}
 	}
-	lockerLast.display();
+	//lockerLast.display();
 
 	for(var i = 0; i < 7; i++){
 
@@ -622,11 +646,21 @@ void keyPressed(){
 			exitDoor = false;
 		}
 	}
-	else if (key == 'q'){
-		//to figure out the coordinates of stationary objects
-		console.log(myCharlotte.xpos);
-		console.log(myCharlotte.ypos);
-		//to figure out the coordinate of the wall
-		console.log(doubDoor.ypos + doubDoor.height);
+
+	else if(lockCode.length < 4 && lockerRoom){
+		if (keyCode == BACKSPACE) {
+		    if (lockCode.length > 0) {
+		    	lockCode = lockCode.substring(0, lockCode.length()-1);
+		    }
+		} 
+		else if (keyCode == DELETE) {
+			lockCode = "";
+		} 
+		else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT) {
+		    lockCode = lockCode + String(key);
+		}
+		else if (keyCode == SHIFT) {
+			lockerRoom = false;
+		}
 	}
 }
