@@ -2,7 +2,7 @@
 PImage forward, right1, right2, left, up;
 PImage objectImage, plant, desks, door, singleDoor, paper; 
 PImage frontDoor, mathRm, rmThr, rmFor; 
-PImage uLose;
+PImage uLose, titleScreen;
 PImage paper, locker1, endLocker;
 
 
@@ -27,6 +27,7 @@ locker lockerList = [];
 boolean exitDoor = false;
 boolean gameOver = false;
 boolean lockerRoom = false;
+boolean startGame = true;
 
 String codeText = "";
 String lockCode = "";
@@ -343,6 +344,7 @@ void setup(){
 	singleDoor = loadImage('singleD.png');
 	locker1 = loadImage('littleLocker.png');
 	endLocker = loadImage('bigLocker.png');
+	titleScreen = loadImage('openingScreen.png');
 
 
 	//random paper notes
@@ -396,23 +398,26 @@ void draw(){
 	//switching the screens/backgrounds
 	//level switching
 	switch(currentScreen) {
-		case 0: 
-			bigDoor(); 
+		case 0:
+			titleCode();
 			break;
 		case 1: 
-			mathClass(); 
+			bigDoor(); 
 			break;
 		case 2: 
+			mathClass(); 
+			break;
+		case 3: 
 			rm3(); 
 			break;
-		case 3:
+		case 4:
 			rm4();
 			break;
 		default: 
 			background(0); 
 			break;
 	}
-	if (!exitDoor){
+	if (!exitDoor && !startGame){
 		myCharlotte.display();
 		myCharlotte.moveRight();
 		myCharlotte.moveLeft();
@@ -430,6 +435,14 @@ void draw(){
 		else if(myCharlotte.ypos + myCharlotte.height >= 500){
 			myCharlotte.ypos = 500 - myCharlotte.height;
 		}
+	}
+}
+
+void titleCode() {
+	image(titleScreen, 0, 0, 500, 500);
+	if(mousePressed){
+		startGame = false;
+		currentScreen = 1;
 	}
 }
 
@@ -561,15 +574,15 @@ void bigDoor() {
 
 	//switching screens
 	if (myCharlotte.xpos <= 0 && myCharlotte.ypos + myCharlotte.height > 185 && myCharlotte.ypos < 255){
-		currentScreen = 1;
+		currentScreen = 2;
 		myCharlotte.xpos = 500 - myCharlotte.width;
 	}
 	else if (myCharlotte.xpos + myCharlotte.width >= 500 && myCharlotte.ypos + myCharlotte.height > 240 && myCharlotte.ypos < 295){
-		currentScreen = 2;
+		currentScreen = 3;
 		myCharlotte.xpos = 0;
 	}
 	else if (myCharlotte.xpos < 260 && myCharlotte.xpos + myCharlotte.width > 205 && myCharlotte.ypos + myCharlotte.height >= 500){
-		currentScreen = 3;
+		currentScreen = 4;
 		myCharlotte.ypos = 80;
 	}
 	if (exitDoor) {
@@ -640,7 +653,7 @@ void mathClass() {
 	// }
 
 	if (myCharlotte.xpos + myCharlotte.width >= 500 && myCharlotte.ypos + myCharlotte.height > 185 && myCharlotte.ypos < 255){
-		currentScreen = 0;
+		currentScreen = 1;
 		myCharlotte.xpos = 1;
 	}
 
@@ -650,7 +663,7 @@ void rm3() {
 	//controls third room
 	image(rmThr, 0, 0, 500, 500);
 	if (myCharlotte.xpos <= 0 && myCharlotte.ypos + myCharlotte.height > 240 && myCharlotte.ypos < 295){
-		currentScreen = 0;
+		currentScreen = 1;
 		myCharlotte.xpos = 500 - myCharlotte.width - 1;
 	}
 	teachTab.display();
@@ -688,7 +701,7 @@ void rm4(){
 	image(rmFor, 0, 0, 500, 500);
 	singDoor.display();
 	if (myCharlotte.xpos <= 260 && myCharlotte.xpos + myCharlotte.width > 205 && myCharlotte.ypos <= 80){
-		currentScreen = 0;
+		currentScreen = 1;
 		myCharlotte.ypos = 500 - myCharlotte.height - 1;
 	}
 }
