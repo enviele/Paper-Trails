@@ -38,7 +38,7 @@ var randomNotes = ["Meet me after school today. I have to talk to you. I know ab
 					"Can I copy off your math homework?? :) <3",
 					"I'm screwed for the physics test. Didn't study at all last night...",
 					"Left a note in the usual spot. Remember this gem from when we were young? You bury me when I'm alive and dig me up only when I die, what am I?",
-					"MUN meeting today after school, bring cookies. Also, Super Smash Bros tournament afterwards. Me and my girl Princess Peach are going to kick your ass.",
+					"MUN meeting today after school, bring cookies. Also, Super Smash Bros tournament afterwards. Me and my girl Princess Peach are going to kick your butt.",
 					"We need to call a meeting for game design club officers. Our budget is severely restricting our individuality"
 					];
 
@@ -330,10 +330,12 @@ void setup(){
 	}
 
 	//initializing the locker objects
-	for(var i = 0; i < 4; i++){
-		lockerList.push(new obj(locker, 460, 30*i + 330, 30, 30));
+	//at the moment, checkRight can't tell which locker you are at
+	//Therefore, it doesn't know which code is the correct code
+	// for(var i = 0; i < 4; i++){
+	// 	lockerList.push(new obj(locker, 460, 30*i + 330, 30, 30));
 
-	}
+	// }
 
 	lockerList.push(new obj(endLocker, 460, 450, 30, 40));
 	//textAlign(CENTER, CENTER);
@@ -347,7 +349,10 @@ void setup(){
 	plantText = new textBox(350, story[1]);
 	teachTab = new obj(desk, 250, 250, 50, 50);
 	teachText = new textBox(350, story[2]);
-	promptLock = new textBox(350, "Please enter the locker combination" + lockCode);
+	//the lockCode is not working because setup only runs once.
+	//therefore, at the time, lockCode is an empty string. 
+	//Since we never update promptLock, it will keep displaying as if lockCode were an empty string
+	promptLock = new textBox(350, "Please enter the locker combination: " + lockCode);
 
 
 	for(var i = 0; i < deskList.length; i++){
@@ -425,11 +430,13 @@ void bigDoor() {
 				
 	}
 
+	//locker combo check
 	for(var i = 0; i < lockerList.length; i++){
 		lockerList[i].display();
 		if(lockerList[i].checkRight()){
 			myCharlotte.xpos = lockerList[i].xpos - myCharlotte.width;
 			if(keyPressed && key == 'a' ){
+				//console.log(i);
 				lockerRoom = true;
 				promptLock.display();
 			}
@@ -439,10 +446,18 @@ void bigDoor() {
 		}	
 		else if(lockerList[i].checkDown()){
 			myCharlotte.ypos = lockerList[i].ypos + lockerList[i].height;
-			// if(keyPressed && key =='a'){
-			// 	exitDoor = true;
-			// 	promptExit.display(); 
-			// }
+		}
+		if(lockerRoom){
+			if(lockCode.length == 3){
+			  	if(lockCode == lockerCodes[i]){
+			  		console.log("yatta! I remember my locker combo!");
+				}
+				else{
+					console.log("nope wrong number");
+				  	lockCode = "";
+					promptLock.s = "Please enter the locker combination: "; 
+				}
+	  		}
 		}
 	}
 	//lockerLast.display();
@@ -527,10 +542,6 @@ void bigDoor() {
 	}
 }	
 
-	// fill(0);
-	// rect(0, 300, width, height);
-	// fill(255);
-	// text("hello this is a text box", 10, 310, width, 100);
 
 void mathClass() {
 	//controls second room
@@ -647,20 +658,31 @@ void keyPressed(){
 		}
 	}
 
-	else if(lockCode.length < 4 && lockerRoom){
-		if (keyCode == BACKSPACE) {
-		    if (lockCode.length > 0) {
-		    	lockCode = lockCode.substring(0, lockCode.length()-1);
-		    }
-		} 
-		else if (keyCode == DELETE) {
-			lockCode = "";
-		} 
-		else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT) {
+	// else if(lockCode.length < 4 && lockerRoom){
+	// 	if (keyCode == BACKSPACE) {
+	// 	    if (lockCode.length > 0) {
+	// 	    	lockCode = lockCode.substring(0, lockCode.length()-1);
+	// 	    }
+	// 	} 
+	// 	else if (keyCode == DELETE) {
+	// 		lockCode = "";
+	// 	} 
+	// 	else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT) {
+	// 	    lockCode = lockCode + String(key);
+	// 	}
+	// 	else if (keyCode == SHIFT) {
+	// 		lockerRoom = false;
+	// 	}
+	// }
+	if(lockCode.length < 3 && lockerRoom){
+		if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT) {
 		    lockCode = lockCode + String(key);
+		    promptLock.s += String(key);
+		    console.log(lockCode);
 		}
 		else if (keyCode == SHIFT) {
 			lockerRoom = false;
+			promptLock.s = "Please enter the locker combination: "; 
 		}
 	}
 }
