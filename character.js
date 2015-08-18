@@ -352,6 +352,7 @@ void setup(){
 	//the lockCode is not working because setup only runs once.
 	//therefore, at the time, lockCode is an empty string. 
 	//Since we never update promptLock, it will keep displaying as if lockCode were an empty string
+	//to display, I used a property of textboxes: .s
 	promptLock = new textBox(350, "Please enter the locker combination: " + lockCode);
 
 
