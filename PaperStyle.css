@@ -1,0 +1,9 @@
+
+@font-face {
+    font-family: myFirstFont;
+    src: ARCADECLASSIC.TTF;
+}
+
+p {
+	font-family: myFirstFont, arial, sans-serif;
+}
