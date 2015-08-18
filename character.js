@@ -3,7 +3,7 @@ PImage forward, right1, right2, left, up;
 PImage objectImage, plant, desks, door, singleDoor, paper; 
 PImage frontDoor, mathRm, rmThr, rmFor; 
 PImage uLose;
-PImage paper, locker, endLocker;
+PImage paper, locker1, endLocker;
 
 
 
@@ -11,6 +11,7 @@ PImage paper, locker, endLocker;
 charlotte myCharlotte;
 obj teachTab;
 obj pottedPlant;
+textBox insideLocker;
 textBox promptExit;
 textBox promptLock;
 textBox plantText;
@@ -18,7 +19,9 @@ textBox otherNotes = [];
 textBox deskText1 = [[],[],[],[]];
 obj deskList = [[],[],[],[]];
 obj randomPaper = [];
-obj lockerList = [];
+//obj picturePaper;
+//obj lockerList = [];
+locker lockerList = [];
 
 
 boolean exitDoor = false;
@@ -28,12 +31,21 @@ boolean lockerRoom = false;
 String codeText = "";
 String lockCode = "";
 
-var lockerCodes = ["666", "153", "248", "206", "420"];
+var lockerCodes = ["1666", "2153", "3248", "4206", "5420"];
+var assignLock;
+// var lockerCodes = new Array();
+// lockerCodes["first"] = 1666;
+// lockerCodes["second"] = 2153;
+// lockerCodes["third"] = 3258;
+// lockerCodes["fourth"] = 4206;
+// lockerCodes["fifth"] = 1666;
+
 var story = ["Type a four letter code to get out. Press shift to go back to room", 
 			"Meet me today after math class. Don't forget your locker combo: 420. You even forgot your locker number! Here: I am the beginning of the end, the end of every place. I am the beginning of eternity, the end of time and space. What am I? the answer will lead to your locker number. :) <3 S.", 
 			"There's a test on the table. Name: Charlotte, Grade: F"];
 
 var randomNotes = ["Meet me after school today. I have to talk to you. I know about you and [the note is cut off here]", 
+					"[A PICTURE OF TWO GIRLS. THEY'RE OBVIOUSLY QUITE CLOSE. A CAPTION ON THE BACK READS 'SOPHIE LOOKS LIKE AN IDIOT IN THIS PICTURE ;) LOVE HER DUMB FACE THOUGH - C']",
 					"Please have this signed by your parents Tuesday.", 
 					"Can I copy off your math homework?? :) <3",
 					"I'm screwed for the physics test. Didn't study at all last night...",
@@ -51,7 +63,7 @@ var deskNotes = [["I'm pretty sure we already went over this stuff. The class is
 				  "Personal Essay: My battle with the APUSH curriculum",
 				  "Personal Essay: My battle with the AMSTED curriculum"],
 				  ["Personal Essay: My battle with the IB History curriculum",
-				  "Personal Essay: A Change of Scenery - My move when I was 9 years old",	
+				  "Personal Essay: A Change of Scenery - My move when I was 9 years old [written comment] 'I'm glad you moved here though. You should know you've been my best friend since we were 9' -S",	
 				  "Personal Essay: Working with Syrian Refugees [in red pen] 'wow!!'",
 				  "This is dumb. I don't know why my essay was rejected. Ms Coleman doesn't even know what she's doing",
 				  "Critical Essay - Yams of Wrath: Okonkwo's anger issues "],
@@ -290,6 +302,20 @@ class obj{
 	}
 
 }
+
+class locker extends obj{
+
+	
+	var codes;
+
+	locker(tmpImg1, tmpXpos, tmpYpos, tmpwidth, tmpheight, tmpCodes){
+
+		super(tmpImg1, tmpXpos, tmpYpos, tmpwidth, tmpheight);
+		codes = tmpCodes;
+	}
+
+
+}
 void setup(){
 	//size(400, 400);
 	//background(0);
@@ -315,29 +341,29 @@ void setup(){
 	door = loadImage('greyD.png');
 	paper = loadImage('Paper.png');
 	singleDoor = loadImage('singleD.png');
-	locker = loadImage('littleLocker.png');
+	locker1 = loadImage('littleLocker.png');
 	endLocker = loadImage('bigLocker.png');
 
 
 	//random paper notes
-	for(var i = 0; i < 7; i++){
+	for(var i = 0; i < randomNotes.length; i++){
 		randomPaper.push(new obj(paper, random(70, 400), random(90, 400), 30, 30));
 	}
 	
 	//random textBoxes too
-	for(var i = 0; i < 7; i++){
+	for(var i = 0; i < randomNotes.length; i++){
 		otherNotes.push(new textBox(350, randomNotes[i]));
 	}
 
 	//initializing the locker objects
 	//at the moment, checkRight can't tell which locker you are at
 	//Therefore, it doesn't know which code is the correct code
-	// for(var i = 0; i < 4; i++){
-	// 	lockerList.push(new obj(locker, 460, 30*i + 330, 30, 30));
+	for(var i = 0; i < 4; i++){
+		lockerList.push(new locker(locker1, 460, 30*i + 330, 30, 30, lockerCodes[i]));
 
-	// }
+	}
 
-	lockerList.push(new obj(endLocker, 460, 450, 30, 40));
+	lockerList.push(new locker(endLocker, 460, 450, 30, 40, lockerCodes[4]));
 	//textAlign(CENTER, CENTER);
 	textSize(15);
 	fill(0);
@@ -349,11 +375,12 @@ void setup(){
 	plantText = new textBox(350, story[1]);
 	teachTab = new obj(desk, 250, 250, 50, 50);
 	teachText = new textBox(350, story[2]);
+	insideLocker = new textBox(350, "Inside the locker, there is a birthday card. It reads: 'Happy 9th Birthday from your best friend! -S'")
 	//the lockCode is not working because setup only runs once.
 	//therefore, at the time, lockCode is an empty string. 
 	//Since we never update promptLock, it will keep displaying as if lockCode were an empty string
 	//to display, I used a property of textboxes: .s
-	promptLock = new textBox(350, "Please enter the locker combination: " + lockCode);
+	promptLock = new textBox(350, "Please enter the locker number and locker combination: " + lockCode);
 
 
 	for(var i = 0; i < deskList.length; i++){
@@ -412,7 +439,12 @@ void bigDoor() {
 	//Displaying objects
 	doubDoor.display();
 	pottedPlant.display();
-	//double doors 
+
+	/*
+		
+		CHECKING THE EXIT DOOR CODE
+
+	*/
 	if(doubDoor.checkRight()){
 		myCharlotte.xpos = doubDoor.xpos - myCharlotte.width;
 	}
@@ -431,15 +463,23 @@ void bigDoor() {
 				
 	}
 
-	//locker combo check
+
+	/*
+		DISPLAYING AND INPUTTING LOCKER CODES
+		use a for loop to display and check locker codes 
+
+
+	*/
 	for(var i = 0; i < lockerList.length; i++){
 		lockerList[i].display();
 		if(lockerList[i].checkRight()){
 			myCharlotte.xpos = lockerList[i].xpos - myCharlotte.width;
 			if(keyPressed && key == 'a' ){
-				//console.log(i);
+				console.log(i);
+				console.log(lockerCodes[i]);
 				lockerRoom = true;
 				promptLock.display();
+				assignLock = i;
 			}
 		}
 		else if(lockerList[i].checkUp()){	
@@ -448,24 +488,35 @@ void bigDoor() {
 		else if(lockerList[i].checkDown()){
 			myCharlotte.ypos = lockerList[i].ypos + lockerList[i].height;
 		}
-		if(lockerRoom){
-			promptLock.display();
-			if(lockCode.length == 3){
-			  	if(lockCode == lockerCodes[i]){
-			  		console.log("yatta! I remember my locker combo!");
-			  		lockerRoom = false;
-				}
-				else{
-					console.log("nope wrong number");
-				  	lockCode = "";
-					promptLock.s = "Please enter the locker combination: "; 
-				}
-	  		}
-		}
+		
+		
 	}
+	if(lockerRoom){
+			promptLock.display();
+			//for(var i = 0; i < 4; i++){
+				//if( assignLock == i){
+					if(lockCode.length == 4){
+					  	if(lockCode == lockerList[assignLock].codes){
+					  		console.log("yatta! I remember my locker combo!");
+					  		insideLocker.display();
+					  		if(keyPressed && keyCode == SHIFT){
+						  		lockerRoom = false;
+					  		}
+						}
+						else{
+							console.log("nope wrong number");
+						  	lockCode = "";
+							promptLock.s = "Please enter the locker combination: "; 
+						}
+	  				}
+				
+			//}
+			
+		}
+
 	//lockerLast.display();
 
-	for(var i = 0; i < 7; i++){
+	for(var i = 0; i < randomNotes.length; i++){
 
 		randomPaper[i].display();
 		if(randomPaper[i].checkRight()){
@@ -677,7 +728,7 @@ void keyPressed(){
 	// 		lockerRoom = false;
 	// 	}
 	// }
-	if(lockCode.length < 3 && lockerRoom){
+	if(lockCode.length < 4 && lockerRoom){
 		if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT) {
 		    lockCode = lockCode + String(key);
 		    promptLock.s += String(key);
@@ -685,7 +736,7 @@ void keyPressed(){
 		}
 		else if (keyCode == SHIFT) {
 			lockerRoom = false;
-			promptLock.s = "Please enter the locker combination: "; 
+			promptLock.s = "Please enter the locker number and the locker combination: "; 
 		}
 	}
 }
