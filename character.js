@@ -519,7 +519,7 @@ void bigDoor() {
 						else{
 							console.log("nope wrong number");
 						  	lockCode = "";
-							promptLock.s = "Please enter the locker combination: "; 
+							promptLock.s = "Please enter the locker number and locker combination: "; 
 						}
 	  				}
 				
@@ -749,7 +749,7 @@ void keyPressed(){
 		}
 		else if (keyCode == SHIFT) {
 			lockerRoom = false;
-			promptLock.s = "Please enter the locker number and the locker combination: "; 
+			promptLock.s = "Please enter the locker number and locker combination: "; 
 		}
 	}
 }
