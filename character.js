@@ -11,12 +11,14 @@ PImage paper, locker1, endLocker;
 charlotte myCharlotte;
 obj teachTab;
 obj pottedPlant;
+//textboxes to interact with objects
 textBox insideLocker;
 textBox promptExit;
 textBox promptLock;
 textBox plantText;
 textBox otherNotes = [];
 textBox deskText1 = [[],[],[],[]];
+//objects to display desks and papers in the main room
 obj deskList = [[],[],[],[]];
 obj randomPaper = [];
 //obj picturePaper;
@@ -45,6 +47,8 @@ var story = ["Type a four letter code to get out. Press shift to go back to room
 			"Meet me today after math class. Don't forget your locker combo: 420. You even forgot your locker number! Here: I am the beginning of the end, the end of every place. I am the beginning of eternity, the end of time and space. What am I? the answer will lead to your locker number. :) <3 S.", 
 			"There's a test on the table. Name: Charlotte, Grade: F"];
 
+//main room notes
+
 var randomNotes = ["Meet me after school today. I have to talk to you. I know about you and [the note is cut off here]", 
 					"[A PICTURE OF TWO GIRLS. THEY'RE OBVIOUSLY QUITE CLOSE. A CAPTION ON THE BACK READS 'SOPHIE LOOKS LIKE AN IDIOT IN THIS PICTURE ;) LOVE HER DUMB FACE THOUGH - C']",
 					"Please have this signed by your parents Tuesday.", 
@@ -54,6 +58,8 @@ var randomNotes = ["Meet me after school today. I have to talk to you. I know ab
 					"MUN meeting today after school, bring cookies. Also, Super Smash Bros tournament afterwards. Me and my girl Princess Peach are going to kick your butt.",
 					"We need to call a meeting for game design club officers. Our budget is severely restricting our individuality"
 					];
+
+//desk notes
 
 var deskNotes = [["I'm pretty sure we already went over this stuff. The class is such a waste of time",
 				  "Why does he have to be so judge-y about other people's questions? God.",
@@ -91,6 +97,12 @@ function timer(secs){
   }
 }
 
+/*
+
+	following functions from smallRect to endingKeyCode is for the ending door code
+
+*/
+
 function smallRect (xVal, yVal, red, green, blue) {
 	fill(red, green, blue);
 	rect(xVal, yVal, 60, 150);
@@ -114,9 +126,93 @@ function endingKeyCode () {
 	smallRect(275, 100, 57, 127, 219);
 }
 
+/* 
 
-//class for main character 
-//includes functions for moving up, moving down, etc. Also a function for interactions
+	function for interactions with objects
+	coded on the airplane, so not completely sure it works
+	the function takes parameters for objects and text boxes
+	the touch_boolParam asks if you want charlotte to bump into the object
+
+*/
+
+function interact(obj_param, text_param, touch_boolParam){
+
+	obj_param.display();
+
+	if(touch_boolParam){
+
+		if(obj_param.checkRight()){
+				myCharlotte.xpos = obj_param.xpos - myCharlotte.width;
+				if(keyPressed == true && key == 'a'){
+					text_param.display();
+				}
+		}
+
+		else if(obj_param.checkLeft()){
+				myCharlotte.xpos = obj_param.xpos + obj_param.width;
+				if(keyPressed == true && key == 'a'){
+					text_param.display();
+				}
+		}
+
+		else if(obj_param.checkUp()){	
+				myCharlotte.ypos = obj_param.ypos - myCharlotte.height;
+				if(keyPressed == true && key == 'a'){
+					text_param.display();
+				}
+		}
+
+		else if(obj_param.checkDown()){
+				myCharlotte.ypos = obj_param.ypos + obj_param.height;
+				if(keyPressed == true && key == 'a'){
+					text_param.display();
+				} 
+		}
+
+	}
+
+	else{
+		if(obj_param.checkRight()){
+				if(keyPressed == true && key == 'a'){
+					text_param.display();
+				}
+					
+		}
+
+		else if(obj_param.checkLeft()){
+				if(keyPressed == true && key == 'a'){
+					text_param.display();
+				}
+					
+		}
+
+		else if(obj_param.checkUp()){	
+				if(keyPressed == true && key == 'a'){
+					text_param.display();
+				}
+						
+		}	
+
+		else if(obj_param.checkDown()){
+				if(keyPressed == true && key == 'a'){
+					text_param.display();
+				}
+						
+		}
+	}
+
+}
+
+
+/*
+
+	This is a class for the main character - charlotte
+	Takes in parameters for switching the sprite display as it moves. 
+	Also takes in parameters for the x position, y position, width, and height
+	class includes functions for display as well as moving right, left, up, and down
+
+*/
+
 class charlotte{
 	var xpos;
 	var ypos;
@@ -200,8 +296,13 @@ class charlotte{
 	
 }
 
-//class for text boxes
-//can potentially prompt them with 
+/*
+
+	class for text boxes that pop up as the sprite interacts with objects
+	Takes in parameters for the y position and a string to fill the text box
+	includes a display function
+
+*/
 class textBox{
 	var ypos;
 	var s;
@@ -221,13 +322,15 @@ class textBox{
 
 }
 
-/*a class for an objects. 
-for functions: sensing left, right, up, down with the character
-	return booleans*/
 
+/*
 
-//a class for an objects. for functions: sensing left, right, up, down with the character. return booleans
+	a class for an objects. 
+	for functions: sensing left, right, up, down with the character
+	Each function returns a boolean return booleans
+	Parent class of locker class below
 
+*/
 
 class obj{
 
@@ -304,6 +407,13 @@ class obj{
 
 }
 
+/*
+
+	Parent/child with main obj class above.
+	Takes in one additional parameter for a locker code
+
+*/
+
 class locker extends obj{
 
 	
@@ -317,6 +427,7 @@ class locker extends obj{
 
 
 }
+
 void setup(){
 	//size(400, 400);
 	//background(0);
@@ -395,8 +506,12 @@ void setup(){
 }
 
 void draw(){
-	//switching the screens/backgrounds
-	//level switching
+
+	/*
+
+		switches backgrounds as you go into different rooms
+
+	*/
 	switch(currentScreen) {
 		case 0:
 			titleCode();
@@ -417,6 +532,12 @@ void draw(){
 			background(0); 
 			break;
 	}
+
+	/* 
+
+	ensures that charlotte is able to move during the entire game
+	
+	*/
 	if (!exitDoor && !startGame){
 		myCharlotte.display();
 		myCharlotte.moveRight();
@@ -438,13 +559,29 @@ void draw(){
 	}
 }
 
+/*
+
+function for displaying the title art at the beginning
+courtesy of Elizabeth Viele <3
+
+*/
+
 void titleCode() {
+
 	image(titleScreen, 0, 0, 500, 500);
 	if(mousePressed){
 		startGame = false;
 		currentScreen = 1;
 	}
 }
+
+/*
+
+function for displaying the first room
+Objects in the first room are: the potted plant, the exit door, lockers, and papers littering the floor
+
+
+*/
 
 void bigDoor() {
 	//controls the first room
@@ -458,6 +595,7 @@ void bigDoor() {
 		CHECKING THE EXIT DOOR CODE
 
 	*/
+
 	if(doubDoor.checkRight()){
 		myCharlotte.xpos = doubDoor.xpos - myCharlotte.width;
 	}
@@ -479,7 +617,8 @@ void bigDoor() {
 
 	/*
 		DISPLAYING AND INPUTTING LOCKER CODES
-		use a for loop to display and check locker codes 
+		use a for loop to display and check locker codes
+		assign lock saves the current locker that you are at in order to check the correct locker code 
 
 
 	*/
@@ -504,6 +643,15 @@ void bigDoor() {
 		
 		
 	}
+
+	/*
+
+		CHECK THE LOCKER ROOM CODES HERE
+		Codes only display permanently with a boolean.
+		Consider assigning booleans to all objects to get the text boxes to display permanently until dismissed
+		Don't feel like coding it in right now, but it should be put into the interact function
+
+	*/
 	if(lockerRoom){
 			promptLock.display();
 			//for(var i = 0; i < 4; i++){
@@ -609,6 +757,13 @@ void bigDoor() {
 	}
 }	
 
+/*
+
+	DISPLAYS THE ROOM WITH ALL THE DESKS
+	desks are in a 2D array in the room
+
+*/
+
 
 void mathClass() {
 	//controls second room
@@ -659,6 +814,12 @@ void mathClass() {
 
 }
 
+/*
+
+DISPLAYS THE ROOM WITH THE FAILED MATH TEST
+
+*/
+
 void rm3() {
 	//controls third room
 	image(rmThr, 0, 0, 500, 500);
@@ -695,6 +856,12 @@ void rm3() {
 	}
 
 }
+
+/*
+
+DISPLAYS THE EMPTY ROOM FOR NOW
+
+*/
 
 void rm4(){
 	//controls forth room
