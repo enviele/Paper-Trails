@@ -129,6 +129,7 @@ function endingKeyCode () {
 /* 
 
 	function for interactions with objects
+	Also displays the objects
 	coded on the airplane, so not completely sure it works
 	the function takes parameters for objects and text boxes
 	the touch_boolParam asks if you want charlotte to bump into the object
@@ -681,47 +682,12 @@ void bigDoor() {
 	//lockerLast.display();
 
 	for(var i = 0; i < randomNotes.length; i++){
+		randomPaper
+		interact(randomPaper[i], otherNotes[i], false);
+	}
 
-		randomPaper[i].display();
-		if(randomPaper[i].checkRight()){
-			if(keyPressed == true && key == 'a'){
-				otherNotes[i].display();
-			}
-				
-		}
-		else if(randomPaper[i].checkLeft()){
-			if(keyPressed == true && key == 'a'){
-				otherNotes[i].display();
-			}
-				
-		}
-		else if(randomPaper[i].checkUp()){	
-			if(keyPressed == true && key == 'a'){
-				otherNotes[i].display();
-			}
-					
-		}	
-		else if(randomPaper[i].checkDown()){
-			if(keyPressed == true && key == 'a'){
-				otherNotes[i].display();
-			}
-					
-		}
-				
-	}
-	//potted plant actions
-	if(pottedPlant.checkLeft()){
-		myCharlotte.xpos = pottedPlant.xpos + pottedPlant.width;
-		if(keyPressed == true && key == 'a'){
-			plantText.display();
-		}
-	}
-	else if(pottedPlant.checkUp()){	
-		myCharlotte.ypos = pottedPlant.ypos - myCharlotte.height;
-	}	
-	else if(pottedPlant.checkDown()){
-		myCharlotte.ypos = pottedPlant.ypos + pottedPlant.height;
-	}
+	
+	interact(pottedPlant, plantText, true);
 
 	//switching screens
 	if (myCharlotte.xpos <= 0 && myCharlotte.ypos + myCharlotte.height > 185 && myCharlotte.ypos < 255){
@@ -774,33 +740,7 @@ void mathClass() {
 	image(mathRm, 0, 0, 500, 500);
 	for(var i = 0; i < deskList.length; i++){
 		for(var j = 0; j < 5; j++){
-			deskList[i][j].display();
-			//console.log(deskList[i][j].xpos);
-			if(deskList[i][j].checkRight()){
-				myCharlotte.xpos = deskList[i][j].xpos - myCharlotte.width;
-				if(keyPressed == true && key == 'a'){
-					deskText1[i][j].display();
-				}
-				//myCharlotte.xpos = deskList;
-			}
-			else if(deskList[i][j].checkLeft()){
-				myCharlotte.xpos = deskList[i][j].xpos + deskList[i][j].width;
-				if(keyPressed == true && key == 'a'){
-					deskText1[i][j].display();
-				}
-			}
-			else if(deskList[i][j].checkUp()){	
-				myCharlotte.ypos = deskList[i][j].ypos - myCharlotte.height;
-				if(keyPressed == true && key == 'a'){
-					deskText1[i][j].display();
-				}
-			}	
-			else if(deskList[i][j].checkDown()){
-				myCharlotte.ypos = deskList[i][j].ypos + deskList[i][j].height;
-				if(keyPressed == true && key == 'a'){
-					deskText1[i][j].display();
-				} 
-			}
+			interact(deskList[i][j], deskText1[i][j], true);
 		}
 	}
 
@@ -901,22 +841,7 @@ void keyPressed(){
 		}
 	}
 
-	// else if(lockCode.length < 4 && lockerRoom){
-	// 	if (keyCode == BACKSPACE) {
-	// 	    if (lockCode.length > 0) {
-	// 	    	lockCode = lockCode.substring(0, lockCode.length()-1);
-	// 	    }
-	// 	} 
-	// 	else if (keyCode == DELETE) {
-	// 		lockCode = "";
-	// 	} 
-	// 	else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT) {
-	// 	    lockCode = lockCode + String(key);
-	// 	}
-	// 	else if (keyCode == SHIFT) {
-	// 		lockerRoom = false;
-	// 	}
-	// }
+
 	if(lockCode.length < 4 && lockerRoom){
 		if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT) {
 		    lockCode = lockCode + String(key);
