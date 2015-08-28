@@ -528,6 +528,9 @@ void draw(){
 		case 4:
 			rm4();
 			break;
+		case 5:
+			endScreen();
+			break;
 		default: 
 			background(0); 
 			break;
@@ -538,7 +541,7 @@ void draw(){
 	ensures that charlotte is able to move during the entire game
 	
 	*/
-	if (!exitDoor && !startGame){
+	if (!exitDoor && !startGame && !gameOver){
 		myCharlotte.display();
 		myCharlotte.moveRight();
 		myCharlotte.moveLeft();
@@ -749,8 +752,9 @@ void bigDoor() {
 		  		console.log("you win");
 			}
 			else{
-				gameOver = true;
-	  			image(uLose, 0, 0, 500, 500);
+				currentScreen = 5;
+				// gameOver = true;
+	  	// 		image(uLose, 0, 0, 500, 500);
 			  	codeText = "";
 			}
   		}
@@ -871,6 +875,11 @@ void rm4(){
 		currentScreen = 1;
 		myCharlotte.ypos = 500 - myCharlotte.height - 1;
 	}
+}
+
+void endScreen(){
+	image(uLose, 0, 0, 500, 500);
+	gameOver = true;
 }
 
 void keyPressed(){
