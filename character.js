@@ -30,6 +30,7 @@ boolean exitDoor = false;
 boolean gameOver = false;
 boolean lockerRoom = false;
 boolean startGame = true;
+boolean displayTextBox = false;
 
 String codeText = "";
 String lockCode = "";
@@ -138,37 +139,72 @@ function endingKeyCode () {
 
 function interact(obj_param, text_param, touch_boolParam){
 
-	obj_param.display();
+	//var displayTextBox = false; 
+	var countingKeyPress = 0;
 
+	obj_param.display();
+	
 	if(touch_boolParam){
 
 		if(obj_param.checkRight()){
 				myCharlotte.xpos = obj_param.xpos - myCharlotte.width;
 				if(keyPressed == true && key == 'a'){
-					text_param.display();
+				
+					displayTextBox = true;
+				
 				}
+				 if(keyPressed == true && key == 'b'){
+				 	displayTextBox = false;
+
+				 }
 		}
 
 		else if(obj_param.checkLeft()){
 				myCharlotte.xpos = obj_param.xpos + obj_param.width;
 				if(keyPressed == true && key == 'a'){
-					text_param.display();
+					
+					displayTextBox = true;
+					
 				}
+				 if(keyPressed == true && key == 'b'){
+				 	displayTextBox = false;
+
+				 }
+
 		}
 
 		else if(obj_param.checkUp()){	
 				myCharlotte.ypos = obj_param.ypos - myCharlotte.height;
 				if(keyPressed == true && key == 'a'){
-					text_param.display();
+					//text_param.display();
+					displayTextBox = true;
+					//countingKeyPress = 1;
 				}
+				 if(keyPressed == true && key == 'b'){
+				 	displayTextBox = false;
+
+				 }
 		}
 
 		else if(obj_param.checkDown()){
 				myCharlotte.ypos = obj_param.ypos + obj_param.height;
 				if(keyPressed == true && key == 'a'){
-					text_param.display();
-				} 
+					//text_param.display();
+					displayTextBox = true;
+					//countingKeyPress = 1;
+				}
+				 if(keyPressed == true && key == 'b'){
+				 	displayTextBox = false;
+
+				 }
 		}
+
+		
+	 	if(displayTextBox){
+				console.log("displaying text");
+				text_param.display();
+			 }
+
 
 	}
 
@@ -201,6 +237,7 @@ function interact(obj_param, text_param, touch_boolParam){
 						
 		}
 	}
+
 
 }
 
