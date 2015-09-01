@@ -37,12 +37,8 @@ String lockCode = "";
 
 var lockerCodes = ["1666", "2153", "3248", "4206", "5420"];
 var assignLock;
-// var lockerCodes = new Array();
-// lockerCodes["first"] = 1666;
-// lockerCodes["second"] = 2153;
-// lockerCodes["third"] = 3258;
-// lockerCodes["fourth"] = 4206;
-// lockerCodes["fifth"] = 1666;
+var assignObject;
+
 
 var story = ["Type a four letter code to get out. Press shift to go back to room", 
 			"Meet me today after math class. Don't forget your locker combo: 420. You even forgot your locker number! Here: I am the beginning of the end, the end of every place. I am the beginning of eternity, the end of time and space. What am I? the answer will lead to your locker number. :) <3 S.", 
@@ -151,6 +147,7 @@ function interact(obj_param, text_param, touch_boolParam){
 				if(keyPressed == true && key == 'a'){
 				
 					displayTextBox = true;
+					
 				
 				}
 				 if(keyPressed == true && key == 'b'){
@@ -199,11 +196,12 @@ function interact(obj_param, text_param, touch_boolParam){
 				 }
 		}
 
-		
-	 	if(displayTextBox){
-				console.log("displaying text");
-				text_param.display();
-			 }
+
+	 	// if(displayTextBox){
+			// 	//console.log("displaying text");
+			// 	console.log(text_param.s);
+			// 	text_param.display();
+			//  } 
 
 
 	}
@@ -211,31 +209,63 @@ function interact(obj_param, text_param, touch_boolParam){
 	else{
 		if(obj_param.checkRight()){
 				if(keyPressed == true && key == 'a'){
-					text_param.display();
+				
+					displayTextBox = true;
+					
+				
 				}
+				 if(keyPressed == true && key == 'b'){
+				 	displayTextBox = false;
+
+				 }
 					
 		}
 
 		else if(obj_param.checkLeft()){
 				if(keyPressed == true && key == 'a'){
-					text_param.display();
+				
+					displayTextBox = true;
+					
+				
 				}
+				 if(keyPressed == true && key == 'b'){
+				 	displayTextBox = false;
+
+				 }
 					
 		}
 
 		else if(obj_param.checkUp()){	
 				if(keyPressed == true && key == 'a'){
-					text_param.display();
+				
+					displayTextBox = true;
+					
+				
 				}
+				 if(keyPressed == true && key == 'b'){
+				 	displayTextBox = false;
+
+				 }
 						
 		}	
 
 		else if(obj_param.checkDown()){
 				if(keyPressed == true && key == 'a'){
-					text_param.display();
+				
+					displayTextBox = true;
+					
+				
 				}
+				 if(keyPressed == true && key == 'b'){
+				 	displayTextBox = false;
+
+				 }
 						
 		}
+
+		// if(displayTextBox){
+		// 	text_param.display();
+		// }
 	}
 
 
@@ -719,8 +749,17 @@ void bigDoor() {
 	//lockerLast.display();
 
 	for(var i = 0; i < randomNotes.length; i++){
-		randomPaper
+		//randomPaper
 		interact(randomPaper[i], otherNotes[i], false);
+		if(keyPressed == true && key == 'a'){
+			console.log(i);
+			assignObject = i;
+		}
+	}
+	if(displayTextBox){
+
+		otherNotes[assignObject].display();
+
 	}
 
 	
@@ -780,7 +819,7 @@ void mathClass() {
 			interact(deskList[i][j], deskText1[i][j], true);
 		}
 	}
-
+	
 
 
 	// if(deskList[2][2].checkLeft() && key == 'a'){

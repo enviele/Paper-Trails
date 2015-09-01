@@ -4,6 +4,6 @@
     src: url(ARCADECLASSIC.TTF);
 }
 
-p {
+ul {
 	font-family: myFirstFont, arial, sans-serif;
 }
