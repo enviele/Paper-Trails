@@ -21,6 +21,7 @@ textBox deskText1 = [[],[],[],[]];
 //objects to display desks and papers in the main room
 obj deskList = [[],[],[],[]];
 obj randomPaper = [];
+
 //obj picturePaper;
 //obj lockerList = [];
 locker lockerList = [];
@@ -30,12 +31,13 @@ boolean exitDoor = false;
 boolean gameOver = false;
 boolean lockerRoom = false;
 boolean startGame = true;
-boolean displayTextBox = false;
+//boolean displayTextBox = false;
 
 String codeText = "";
 String lockCode = "";
 
 var lockerCodes = ["1666", "2153", "3248", "4206", "5420"];
+var paperparam = ["var1", "var2", "var3", "var4", "var5", "var6", "var7", "var8"];
 var assignLock;
 var assignObject;
 
@@ -133,10 +135,15 @@ function endingKeyCode () {
 
 */
 
-function interact(obj_param, text_param, touch_boolParam){
+//instead of making display text box a global variable, make it a parameter
+//that way it is unique for everything. yas
+
+function interact(obj_param, text_param, touch_boolParam, textBox_param){
 
 	//var displayTextBox = false; 
 	var countingKeyPress = 0;
+	
+	//console.log(textBox_param);
 
 	obj_param.display();
 	
@@ -146,12 +153,12 @@ function interact(obj_param, text_param, touch_boolParam){
 				myCharlotte.xpos = obj_param.xpos - myCharlotte.width;
 				if(keyPressed == true && key == 'a'){
 				
-					displayTextBox = true;
+					textBox_param = true;
 					
 				
 				}
 				 if(keyPressed == true && key == 'b'){
-				 	displayTextBox = false;
+				 	textBox_param = false;
 
 				 }
 		}
@@ -160,11 +167,11 @@ function interact(obj_param, text_param, touch_boolParam){
 				myCharlotte.xpos = obj_param.xpos + obj_param.width;
 				if(keyPressed == true && key == 'a'){
 					
-					displayTextBox = true;
+					textBox_param = true;
 					
 				}
 				 if(keyPressed == true && key == 'b'){
-				 	displayTextBox = false;
+				 	textBox_param = false;
 
 				 }
 
@@ -174,11 +181,11 @@ function interact(obj_param, text_param, touch_boolParam){
 				myCharlotte.ypos = obj_param.ypos - myCharlotte.height;
 				if(keyPressed == true && key == 'a'){
 					//text_param.display();
-					displayTextBox = true;
+					textBox_param = true;
 					//countingKeyPress = 1;
 				}
 				 if(keyPressed == true && key == 'b'){
-				 	displayTextBox = false;
+				 	textBox_param = false;
 
 				 }
 		}
@@ -187,21 +194,15 @@ function interact(obj_param, text_param, touch_boolParam){
 				myCharlotte.ypos = obj_param.ypos + obj_param.height;
 				if(keyPressed == true && key == 'a'){
 					//text_param.display();
-					displayTextBox = true;
+					textBox_param = true;
 					//countingKeyPress = 1;
 				}
 				 if(keyPressed == true && key == 'b'){
-				 	displayTextBox = false;
+				 	textBox_param = false;
 
 				 }
 		}
 
-
-	 	// if(displayTextBox){
-			// 	//console.log("displaying text");
-			// 	console.log(text_param.s);
-			// 	text_param.display();
-			//  } 
 
 
 	}
@@ -210,40 +211,44 @@ function interact(obj_param, text_param, touch_boolParam){
 		if(obj_param.checkRight()){
 				if(keyPressed == true && key == 'a'){
 				
-					displayTextBox = true;
+					textBox_param = true;
+					//console.log(textBox_param);
 					
 				
 				}
 				 if(keyPressed == true && key == 'b'){
-				 	displayTextBox = false;
+				 	textBox_param = false;
 
 				 }
+
+
 					
 		}
 
 		else if(obj_param.checkLeft()){
 				if(keyPressed == true && key == 'a'){
 				
-					displayTextBox = true;
+					textBox_param = true;
 					
 				
 				}
 				 if(keyPressed == true && key == 'b'){
-				 	displayTextBox = false;
+				 	textBox_param = false;
 
 				 }
+
 					
 		}
 
 		else if(obj_param.checkUp()){	
 				if(keyPressed == true && key == 'a'){
 				
-					displayTextBox = true;
+					textBox_param = true;
 					
 				
 				}
 				 if(keyPressed == true && key == 'b'){
-				 	displayTextBox = false;
+				 	textBox_param = false;
 
 				 }
 						
@@ -252,22 +257,24 @@ function interact(obj_param, text_param, touch_boolParam){
 		else if(obj_param.checkDown()){
 				if(keyPressed == true && key == 'a'){
 				
-					displayTextBox = true;
+					textBox_param = true;
+
 					
 				
 				}
 				 if(keyPressed == true && key == 'b'){
-				 	displayTextBox = false;
+				 	textBox_param = false;
 
 				 }
 						
 		}
 
-		// if(displayTextBox){
-		// 	text_param.display();
-		// }
+	
 	}
 
+	if(textBox_param){
+		text_param.display();
+	}
 
 }
 
@@ -525,6 +532,10 @@ void setup(){
 	endLocker = loadImage('bigLocker.png');
 	titleScreen = loadImage('openingScreen.png');
 
+	// for(var i = 0; i < randomNotes.length; i++){
+	// 	paperparam.push(var variable);
+	// }
+
 
 	//random paper notes
 	for(var i = 0; i < randomNotes.length; i++){
@@ -750,20 +761,14 @@ void bigDoor() {
 
 	for(var i = 0; i < randomNotes.length; i++){
 		//randomPaper
-		interact(randomPaper[i], otherNotes[i], false);
-		if(keyPressed == true && key == 'a'){
-			console.log(i);
-			assignObject = i;
-		}
+		interact(randomPaper[i], otherNotes[i], false, paperparam[i]);
+		
+		
 	}
-	if(displayTextBox){
-
-		otherNotes[assignObject].display();
-
-	}
+	
 
 	
-	interact(pottedPlant, plantText, true);
+	//interact(pottedPlant, plantText, true, plantparam);
 
 	//switching screens
 	if (myCharlotte.xpos <= 0 && myCharlotte.ypos + myCharlotte.height > 185 && myCharlotte.ypos < 255){
