@@ -37,7 +37,7 @@ String codeText = "";
 String lockCode = "";
 
 var lockerCodes = ["1666", "2153", "3248", "4206", "5420"];
-var paperparam = ["var1", "var2", "var3", "var4", "var5", "var6", "var7", "var8"];
+var paperparam = new Array(8);
 var assignLock;
 var assignObject;
 
@@ -140,13 +140,10 @@ function endingKeyCode () {
 
 function interact(obj_param, text_param, touch_boolParam, textBox_param){
 
-	//var displayTextBox = false; 
 	var countingKeyPress = 0;
-	
-	//console.log(textBox_param);
 
 	obj_param.display();
-	
+
 	if(touch_boolParam){
 
 		if(obj_param.checkRight()){
@@ -216,8 +213,8 @@ function interact(obj_param, text_param, touch_boolParam, textBox_param){
 					
 				
 				}
-				 if(keyPressed == true && key == 'b'){
-				 	textBox_param = false;
+				if(keyPressed == true && key == 'b'){
+				 	textBox_param = 10;
 
 				 }
 
@@ -232,8 +229,8 @@ function interact(obj_param, text_param, touch_boolParam, textBox_param){
 					
 				
 				}
-				 if(keyPressed == true && key == 'b'){
-				 	textBox_param = false;
+				if(keyPressed == true && key == 'b'){
+				 	textBox_param = 10;
 
 				 }
 
@@ -247,7 +244,7 @@ function interact(obj_param, text_param, touch_boolParam, textBox_param){
 					
 				
 				}
-				 if(keyPressed == true && key == 'b'){
+				if(keyPressed == true && key == 'b'){
 				 	textBox_param = false;
 
 				 }
@@ -272,9 +269,13 @@ function interact(obj_param, text_param, touch_boolParam, textBox_param){
 	
 	}
 
+
 	if(textBox_param){
 		text_param.display();
+		console.log(textBox_param);
 	}
+
+	
 
 }
 
@@ -532,10 +533,7 @@ void setup(){
 	endLocker = loadImage('bigLocker.png');
 	titleScreen = loadImage('openingScreen.png');
 
-	// for(var i = 0; i < randomNotes.length; i++){
-	// 	paperparam.push(var variable);
-	// }
-
+	
 
 	//random paper notes
 	for(var i = 0; i < randomNotes.length; i++){
@@ -577,7 +575,7 @@ void setup(){
 
 	for(var i = 0; i < deskList.length; i++){
 		for(var j = 0; j < 5; j++){
-			deskList[i].push(new obj(desk, 90*i + 30, 120*j + 70, 40, 40));
+			deskList[i].push(new obj(desk, 90*i + 30, 120*j + 70, 35, 45));
 			deskText1[i].push(new textBox(350, deskNotes[i][j]));
 		}
 	}
@@ -760,12 +758,12 @@ void bigDoor() {
 	//lockerLast.display();
 
 	for(var i = 0; i < randomNotes.length; i++){
-		//randomPaper
-		interact(randomPaper[i], otherNotes[i], false, paperparam[i]);
 		
+		interact(randomPaper[i], otherNotes[i], false, paperparam[i]);
+		console.log(paperparam[i]);
 		
 	}
-	
+
 
 	
 	//interact(pottedPlant, plantText, true, plantparam);
